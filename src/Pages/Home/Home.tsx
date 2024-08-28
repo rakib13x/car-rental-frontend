@@ -4,6 +4,7 @@ import React from "react";
 import CarList from "../../components/Car/CarList";
 import Collaborate from "../../components/Collaborate/Collaborate";
 import Hero from "../../components/Hero/Hero";
+import HowItWorks from "../../components/HowItWorks";
 import WhyChoose from "../../components/WhyChoose/WhyChoose";
 
 const Home = () => {
@@ -19,7 +20,9 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      {/* <Advantages /> */}
       <CarList />
+      <HowItWorks />
       <WhyChoose />
       <Collaborate />
     </div>
