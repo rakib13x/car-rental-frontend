@@ -5,6 +5,7 @@ import CarList from "../../components/Car/CarList";
 import Collaborate from "../../components/Collaborate/Collaborate";
 import Hero from "../../components/Hero/Hero";
 import HowItWorks from "../../components/HowItWorks";
+import Mobile from "../../components/Mobile/Mobile";
 import WhyChoose from "../../components/WhyChoose/WhyChoose";
 
 const Home = () => {
@@ -23,6 +24,7 @@ const Home = () => {
       {/* <Advantages /> */}
       <CarList />
       <HowItWorks />
+      <Mobile />
       <WhyChoose />
       <Collaborate />
     </div>
