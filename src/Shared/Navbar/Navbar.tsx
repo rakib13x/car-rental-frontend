@@ -6,6 +6,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { PiShareNetwork } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import TopBar from "./TopBar";
 
 const Navbar = () => {
   const location = useLocation();
@@ -28,7 +29,7 @@ const Navbar = () => {
 
   return (
     <>
-      {/* <TopBar /> */}
+      <TopBar />
       <header className="header px-3 xl:px-0 py-5 lg:py-9 relative">
         <div className="flex items-center">
           <Link to="/">
