@@ -4,6 +4,7 @@ import React from "react";
 import CarList from "../../components/Car/CarList";
 import Collaborate from "../../components/Collaborate/Collaborate";
 import Hero from "../../components/Hero/Hero";
+import Hotdeals from "../../components/HotDeals/HotDeals";
 import HowItWorks from "../../components/HowItWorks";
 import Mobile from "../../components/Mobile/Mobile";
 import WhyChoose from "../../components/WhyChoose/WhyChoose";
@@ -25,6 +26,7 @@ const Home = () => {
       <CarList />
       <HowItWorks />
       <Mobile />
+      <Hotdeals />
       <WhyChoose />
       <Collaborate />
     </div>
