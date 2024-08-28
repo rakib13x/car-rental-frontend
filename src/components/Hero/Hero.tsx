@@ -1,54 +1,25 @@
 import AOS from "aos";
 import { useEffect } from "react";
-import yellowCar from "../../assets/images/banner-car.png";
+import Search from "../Search/Search";
 
 const Hero = ({}) => {
   useEffect(() => {
     AOS.refresh();
   });
   return (
-    <div className=" duration-300 ">
-      <div className="container min-h-[620px] flex">
-        <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center">
-          <div
-            data-aos="zoom-in"
-            data-aos-duration="1500"
-            data-aos-once="false"
-            className="order-1 sm:order-2"
-          >
-            <img
-              src={yellowCar}
-              alt=""
-              className="sm:scale-125 relative -z-10 max-h-[600px] drop-shadow-[2px_20px_6px_rgba(0,0,0,0.50)]"
-            />
-          </div>
-          <div className="space-y-5 order-2 sm:order-1 sm:pr-32 ">
-            <p data-aos="fade-up" className="text-primary text-2xl font-serif">
-              Effortless
-            </p>
-            <h1
-              data-aos="fade-up"
-              data-aos-delay="600"
-              className="text-5xl lg:text-7xl font-semibold font-serif"
-            >
-              Car Rental
-            </h1>
-            <p data-aos="fade-up" data-aos-delay="1000">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-              veritatis explicabo quibusdam quae reprehenderit ab{" "}
-            </p>
-            <button
-              data-aos="fade-up"
-              data-aos-delay="1500"
-              onClick={() => {
-                AOS.refreshHard();
-              }}
-              className="rounded-md bg-primary hover:bg-primary/80 transition duration-500 py-2 px-6 text-black"
-            >
-              Book Now
-            </button>
-          </div>
-        </div>
+    <div
+      className="hero flex px-4 lg:px-12 py-12 sm:py-24 lg:py-48 justify-center align-middle bg-center bg-no-repeat bg-cover"
+      style={{ backgroundImage: `url(src/assets/images/hero-banner.jpg)` }}
+    >
+      <div className="max-w-auto md:max-w-7xl mx-auto grid gap-4 md:gap-12 lg:gap-16">
+        <h1
+          className={`text-2xl md:text-3xl lg:text-5xl text-center text-black `}
+        >
+          Choose your dream rental car and
+          <br />
+          make your ride awesome
+        </h1>
+        <Search />
       </div>
     </div>
   );
