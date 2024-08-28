@@ -1,6 +1,7 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
 import React from "react";
+import CarList from "../../components/Car/CarList";
 import Collaborate from "../../components/Collaborate/Collaborate";
 import Hero from "../../components/Hero/Hero";
 import WhyChoose from "../../components/WhyChoose/WhyChoose";
@@ -18,6 +19,7 @@ const Home = () => {
   return (
     <div>
       <Hero />
+      <CarList />
       <WhyChoose />
       <Collaborate />
     </div>
