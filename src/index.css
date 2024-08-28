@@ -1,3 +1,157 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --color-text: #5b676f;
+    --color-brand: #fc8327;
+
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 210 20% 98%;
+    --primary-foreground: 220.9 39.3% 11%;
+
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 216 12.2% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+body {
+  color: var(--color-text);
+}
+a,
+.color-text {
+  color: var(--color-text);
+}
+.bg-brand {
+  background-color: var(--color-brand);
+}
+a:hover {
+  color: var(--color-brand);
+}
+.car-carousel .slick-slide > div {
+  margin: 0 10px;
+}
+.car-carousel .slick-list {
+  margin: 0 -10px;
+}
+
+.thumbnail-slider-wrap .slick-list.slick-current .slick-slide-thumbnail {
+  border-color: green !important;
+}
+
+.service-slider {
+  overflow: hidden;
+}
+.service-slider .slick-slide > div {
+  margin: 0 2px;
+}
+.service-slider .slick-list {
+  margin: 0 -2px;
+}
+.service-slider .slick-slide + .slick-slide {
+  border-left: 2px solid rgba(238, 237, 237, 0.16);
+}
+
+.slick-slider .slick-dots {
+  top: 104%;
+}
+.slick-slider .slick-dots button {
+  border-radius: 50%;
+  border: none;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: #a7a7a7;
+  outline: none;
+  opacity: 0.3;
+  width: 16px;
+  height: 16px;
+}
+.slick-slider .slick-dots li button:before {
+  font-size: 8px;
+  line-height: 18px;
+  width: 16px;
+  height: 16px;
+  color: transparent;
+}
+.slick-slider .slick-dots li:hover button {
+  box-shadow: 0 0 0 2px #fc8327;
+  background: transparent;
+  opacity: 1;
+}
+.slick-slider .slick-dots li.slick-active button {
+  box-shadow: 0 0 0 2px #fc8327;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #fc8327;
+  opacity: 1;
+}
+.slick-slider .slick-dots li:hover button:before {
+  color: #fc8327;
+}
+.slick-slider .slick-dots li.slick-active button:before {
+  color: #fc8327;
+}

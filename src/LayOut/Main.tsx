@@ -10,7 +10,7 @@ const Main = () => {
   console.log(noHeaderFooter);
 
   return (
-    <div>
+    <div className="px-0 xl:px-9 2xl:px-16">
       {noHeaderFooter || <Navbar />}
       <Outlet />
       {noHeaderFooter || <Footer />}
