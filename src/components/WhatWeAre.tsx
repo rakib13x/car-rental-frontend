@@ -1,7 +1,7 @@
 import SectionTitle from "../Shared/SectionTitle/SectionTitle";
 import SectionWrapper from "../Shared/SectionWrapper/SectionWrapper";
 
-export default function WhatWeAre() {
+const WhatWeAre = () => {
   return (
     <SectionWrapper>
       <SectionTitle
@@ -25,4 +25,6 @@ export default function WhatWeAre() {
       />
     </SectionWrapper>
   );
-}
+};
+
+export default WhatWeAre;
