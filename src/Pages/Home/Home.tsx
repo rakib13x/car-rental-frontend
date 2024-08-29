@@ -1,24 +1,13 @@
-import AOS from "aos";
 import "aos/dist/aos.css";
-import React from "react";
+import CallToAction from "../../components/CallToAction";
 import CarList from "../../components/Car/CarList";
-import Collaborate from "../../components/Collaborate/Collaborate";
 import Hero from "../../components/Hero/Hero";
 import Hotdeals from "../../components/HotDeals/HotDeals";
 import HowItWorks from "../../components/HowItWorks";
 import Mobile from "../../components/Mobile/Mobile";
-import WhyChoose from "../../components/WhyChoose/WhyChoose";
+import Testimonial from "../../components/Testimonial/Testimonial";
 
 const Home = () => {
-  React.useEffect(() => {
-    AOS.init({
-      offset: 100,
-      duration: 800,
-      easing: "ease-in-sine",
-      delay: 100,
-    });
-    AOS.refresh();
-  }, []);
   return (
     <div>
       <Hero />
@@ -27,8 +16,10 @@ const Home = () => {
       <HowItWorks />
       <Mobile />
       <Hotdeals />
-      <WhyChoose />
-      <Collaborate />
+      {/* <WhyChoose />
+      <Collaborate /> */}
+      <Testimonial />
+      <CallToAction />
     </div>
   );
 };
