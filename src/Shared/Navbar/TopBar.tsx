@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const TopBar = () => {
   const user = useAppSelector(selectCurrentUser);
+  console.log(user);
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
@@ -29,6 +30,7 @@ const TopBar = () => {
             {user ? (
               <button onClick={handleLogout} className="text-red-500">
                 Logout
+                <p>{user.name}</p>
               </button>
             ) : (
               <>
