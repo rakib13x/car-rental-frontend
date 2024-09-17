@@ -6,10 +6,12 @@ import Hotdeals from "../../components/HotDeals/HotDeals";
 import HowItWorks from "../../components/HowItWorks";
 import Mobile from "../../components/Mobile/Mobile";
 import Testimonial from "../../components/Testimonial/Testimonial";
+import Navbar from "../../Shared/Navbar/Navbar";
 
 const Home = () => {
   return (
     <div>
+      <Navbar />
       <Hero />
       {/* <Advantages /> */}
       <CarList />
