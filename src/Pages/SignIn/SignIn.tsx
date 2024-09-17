@@ -1,9 +1,41 @@
-import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { Input } from "../../components/ui/Input";
+import { useLoginMutation } from "../../redux/features/authApi";
+import { setUser } from "../../redux/features/authSlice";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 
 const SignIn = () => {
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await login(formData).unwrap();
+
+      dispatch(setUser({ user: response.data, token: response.token }));
+      console.log("Token created:", response.token);
+      toast.success("Login successful!");
+      navigate("/");
+    } catch (error) {
+      toast.error("Login failed. Please check your email and password.");
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-center">
       <div className="p-8 md:py-12 xl:py-20">
@@ -14,38 +46,37 @@ const SignIn = () => {
             align={"center"}
           />
 
-          <form action="/">
-            <div className="mx-auto text-center">
-              <button className="rounded-full w-full bg-white hover:bg-slate-50 text-gray-700">
-                <FcGoogle size={"24"} className="mr-2" />
-                Log in with Google
-              </button>
-            </div>
-            <div className="relative flex py-5 items-center">
-              <div className="flex-grow border-t border-gray-200"></div>
-              <span className="flex-shrink mx-4 text-gray-400">or</span>
-              <div className="flex-grow border-t border-gray-200"></div>
-            </div>
+          <form onSubmit={handleSubmit}>
             <div className="grid gap-4">
-              <Input type="text" name="name" placeholder="User Name" />
-              <Input type="password" name="password" placeholder="Password" />
-              <div className="flex gap-4 items-center">
-                <div className="flex-grow"></div>
-                <Link to="/" className="text-sm font-medium leading-none">
-                  Forget your password?
-                </Link>
-              </div>
-              <button className="rounded-full bg-cyan-500 text-white hover:bg-cyan-600">
-                Log in
+              <Input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <button
+                type="submit"
+                className="rounded-full bg-cyan-500 text-white hover:bg-cyan-600"
+                disabled={isLoading}
+              >
+                {isLoading ? "Logging in..." : "Log in"}
               </button>
             </div>
 
-            <div className="mt-4 gap-4 text-center">
+            <div className="mt-4 text-center">
               <p>
                 Don&apos;t have an account?{" "}
-                <Link to="/signup" className="underline">
+                <a href="/signup" className="underline">
                   Sign up
-                </Link>
+                </a>
               </p>
             </div>
           </form>
@@ -53,11 +84,7 @@ const SignIn = () => {
       </div>
 
       <div className="relative h-full min-h-[240px]">
-        <img
-          src="/car-1.jpg"
-          className="object-cover"
-          alt="404 decoration image"
-        />
+        <img src="/car-1.jpg" className="object-cover" alt="Login decoration" />
       </div>
     </div>
   );
