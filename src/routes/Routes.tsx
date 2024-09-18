@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../LayOut/Main";
 import About from "../Pages/About/About";
+import Cars from "../Pages/Cars/Cars";
 import Demo from "../Pages/Demo/Demo";
 import Home from "../Pages/Home/Home";
 import SignIn from "../Pages/SignIn/SignIn";
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
             <Demo />
           </AdminRoute>
         ),
+      },
+      {
+        path: "cars",
+        element: <Cars />,
       },
     ],
   },

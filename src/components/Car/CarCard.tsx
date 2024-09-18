@@ -1,216 +1,21 @@
-"use client";
-
 import { GiGearStickPattern } from "react-icons/gi";
 import { LuFuel, LuStar } from "react-icons/lu";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useGetAllCarsQuery } from "../../redux/features/cars/carApi";
 
 interface Props {
   count?: number;
   offset?: number;
 }
-const cars = [
-  {
-    id: 1,
-    name: "Mustang Shelby",
-    image: "/car-1.jpg",
-    description: "",
-    price: "$75.00 /hour",
-    rate: 5,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 2,
-    name: "Bentley Cont",
-    image: "/car-2.jpg",
-    description: "",
-    price: "$55.00 /hour",
-    rate: 4,
-    fuel: "Gasoline",
-    seats: 5,
-    transmission: "Automatic",
-    link: "/cars/single",
-  },
-  {
-    id: 3,
-    name: "Audi A7 2017",
-    image: "/car-3.jpg",
-    description: "",
-    price: "$45.00 /hour",
-    rate: 3,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 4,
-    name: "Alfa Romeo",
-    image: "/car-4.jpg",
-    description: "",
-    price: "$15.00 /hour",
-    rate: 2,
-    fuel: "Gasoline",
-    seats: 3,
-    transmission: "Automatic",
-    link: "/cars/single",
-  },
-  {
-    id: 5,
-    name: "Bugatti",
-    image: "/car-5.jpg",
-    description: "",
-    price: "$125.00 /hour",
-    rate: 3,
-    fuel: "Electric",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 6,
-    name: "Dodge Challenger",
-    image: "/car-6.jpg",
-    description: "",
-    price: "$35.00 /hour",
-    rate: 3,
-    fuel: "Diesel",
-    seats: 4,
-    transmission: "Auto",
-    link: "/cars/single",
-  },
-  {
-    id: 7,
-    name: "Maserati Khamsin",
-    image: "/car-7.jpg",
-    description: "",
-    price: "$75.00 /hour",
-    rate: 4,
-    fuel: "Diesel",
-    seats: 5,
-    transmission: "Automatic",
-    link: "/cars/single",
-  },
-  {
-    id: 8,
-    name: "Ford Thunderbird",
-    image: "/car-8.jpg",
-    description: "",
-    price: "$75.00 /hour",
-    rate: 5,
-    fuel: "Diesel",
-    seats: 4,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 9,
-    name: "Nissan Qashqai",
-    image: "/car-9.jpg",
-    description: "",
-    price: "$75 /hour",
-    rate: 2,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 10,
-    name: "Mustang Shelby",
-    image: "/car-1.jpg",
-    description: "",
-    price: "$75 /hour",
-    rate: 4,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 11,
-    name: "Mustang Shelby",
-    image: "/car-2.jpg",
-    description: "",
-    price: "$75 /hour",
-    rate: 5,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 12,
-    name: "Nissan Qashqai",
-    image: "/car-3.jpg",
-    description: "",
-    price: "$25.00 /hour",
-    rate: 5,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 13,
-    name: "Mustang Shelby",
-    image: "/car-9.jpg",
-    description: "",
-    price: "$75 /hour",
-    rate: 5,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 14,
-    name: "Mustang Shelby",
-    image: "/car-8.jpg",
-    description: "",
-    price: "$75 /hour",
-    rate: 5,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 15,
-    name: "Mustang Shelby",
-    image: "/car-7.jpg",
-    description: "",
-    price: "$75 /hour",
-    rate: 5,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-  {
-    id: 16,
-    name: "Mustang Shelby",
-    image: "/car-6.jpg",
-    description: "",
-    price: "$75 /hour",
-    rate: 5,
-    fuel: "Diesel",
-    seats: 3,
-    transmission: "Manual",
-    link: "/cars/single",
-  },
-];
 
 const getStarIcons = (rate: number) => {
   let content = [];
   for (let i = 0; i < rate; i++) {
-    content.push(<LuStar className="text-orange-300" />);
+    content.push(<LuStar className="text-orange-300" key={`star-${i}`} />);
   }
   for (let i = 0; i < 5 - rate; i++) {
-    content.push(<LuStar className="text-gray-300" />);
+    content.push(<LuStar className="text-gray-300" key={`gray-star-${i}`} />);
   }
   return content;
 };
@@ -218,9 +23,25 @@ const getStarIcons = (rate: number) => {
 export default function CarCard(props: Props) {
   const { count = 3, offset = 0 } = props;
 
+  const { data: carData, isLoading, error } = useGetAllCarsQuery(undefined);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading cars data</div>;
+  }
+
+  if (!carData || !carData.data || carData.data.length === 0) {
+    return <div>No cars available</div>;
+  }
+
+  const cars = carData.data;
+
   return (
     <>
-      {cars.slice(offset, count).map((car, index) => (
+      {cars.slice(offset, offset + count).map((car: any, index: number) => (
         <div
           className="filter bg-white drop-shadow-md transition ease-linear hover:drop-shadow-xl"
           key={index}
