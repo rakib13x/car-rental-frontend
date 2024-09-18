@@ -2,7 +2,6 @@ import CarCard from "../../components/Car/CarCard";
 import PageTitle from "../../components/PageTitle";
 import Pagination from "../../components/Pagination";
 import SidebarFilter from "../../components/SideBarFilter";
-import { useGetAllCarsQuery } from "../../redux/features/cars/carApi";
 import SectionWrapper from "../../Shared/SectionWrapper/SectionWrapper";
 
 export default function Cars() {

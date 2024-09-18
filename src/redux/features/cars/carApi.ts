@@ -27,9 +27,17 @@ const carApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getCarById: builder.query({
+      query: (carId: string) => ({
+        url: `/cars/${carId}`, // URL to fetch the single car details by ID
+        method: "GET",
+      }),
+      providesTags: ["Cars"],
+      transformResponse: (response: TResponseRedux<any>) => response.data, // Transform the response to extract car data
+    }),
 
     // You can add more car-related endpoints here, e.g., addCar, updateCar, deleteCar
   }),
 });
 
-export const { useGetAllCarsQuery } = carApi;
+export const { useGetAllCarsQuery, useGetCarByIdQuery } = carApi;

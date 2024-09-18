@@ -47,7 +47,7 @@ export default function CarCard(props: Props) {
           key={index}
         >
           <div className="relative">
-            <Link to={car.link}>
+            <Link to={car._id}>
               <div className="relative aspect-[16/9] bg-gray-200">
                 <img
                   className="object-cover"
