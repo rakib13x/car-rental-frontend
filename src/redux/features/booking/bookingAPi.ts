@@ -9,17 +9,38 @@ const bookingApi = baseApi.injectEndpoints({
         method: "POST",
         body: bookingData,
       }),
-      invalidatesTags: ["Bookings"], // This invalidates the bookings cache when a new booking is made
+      invalidatesTags: ["Bookings"],
     }),
     getMyBookings: builder.query({
       query: () => ({
-        url: "/bookings/my-bookings", // API endpoint for fetching my bookings
+        url: "/bookings/my-bookings",
         method: "GET",
       }),
-      providesTags: ["Bookings"], // This will be used for cache invalidation
-      transformResponse: (response: TResponseRedux<any>) => response.data, // Extract the data from the response
+      providesTags: ["Bookings"],
+      transformResponse: (response: TResponseRedux<any>) => response.data,
+    }),
+    getAllBookings: builder.query({
+      query: () => ({
+        url: "/bookings",
+        method: "GET",
+      }),
+      providesTags: ["Bookings"],
+      transformResponse: (response: TResponseRedux<any>) => response.data,
+    }),
+    returnCar: builder.mutation({
+      query: ({ bookingId, endTime }) => ({
+        url: `/cars/return`,
+        method: "PUT",
+        body: { bookingId, endTime },
+      }),
+      invalidatesTags: ["Bookings"],
     }),
   }),
 });
 
-export const { useBookCarMutation, useGetMyBookingsQuery } = bookingApi;
+export const {
+  useBookCarMutation,
+  useGetMyBookingsQuery,
+  useGetAllBookingsQuery,
+  useReturnCarMutation,
+} = bookingApi;

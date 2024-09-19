@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../LayOut/Main";
 import About from "../Pages/About/About";
+import AllBookings from "../Pages/AllBookings/AllBookings";
 import CarDetails from "../Pages/CarDetails/CarDetails";
 import Cars from "../Pages/Cars/Cars";
 import Demo from "../Pages/Demo/Demo";
@@ -59,6 +60,14 @@ export const router = createBrowserRouter([
           <ProtectedRoute>
             <MyBookings />
           </ProtectedRoute>
+        ),
+      },
+      {
+        path: "allbookings",
+        element: (
+          <AdminRoute>
+            <AllBookings />
+          </AdminRoute>
         ),
       },
     ],
