@@ -5,6 +5,7 @@ import CarDetails from "../Pages/CarDetails/CarDetails";
 import Cars from "../Pages/Cars/Cars";
 import Demo from "../Pages/Demo/Demo";
 import Home from "../Pages/Home/Home";
+import MyBookings from "../Pages/MyBookings/MyBookings";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import AdminRoute from "./AdminRoute";
@@ -51,6 +52,14 @@ export const router = createBrowserRouter([
       {
         path: "cars/:carId",
         element: <CarDetails />,
+      },
+      {
+        path: "mybookings",
+        element: (
+          <ProtectedRoute>
+            <MyBookings />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

@@ -76,7 +76,7 @@ export default function CarCard(props: Props) {
             <div className="flex">
               <div className="flex gap-2 w-[140px] items-center">
                 <LuFuel />
-                <span>Fuel Type</span>
+                <span>{car.status}</span>
               </div>
               <div className="mr-3">:</div>
               <div>{car.fuel}</div>
