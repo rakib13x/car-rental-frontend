@@ -10,8 +10,9 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { baseApi } from "./api/baseApi";
+import { baseApi } from "./api/baseApi"; // baseApi remains if you are using it for other endpoints
 import authReducer from "./features/authSlice";
+import { carApi } from "./features/cars/carApi"; // Import carApi for car-related queries
 
 const persistConfig = {
   key: "auth",
@@ -22,20 +23,22 @@ const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
-    [baseApi.reducerPath]: baseApi.reducer,
+    [baseApi.reducerPath]: baseApi.reducer, // Keep baseApi reducer if still using
+    [carApi.reducerPath]: carApi.reducer, // Add carApi reducer
     auth: persistedAuthReducer,
   },
-  middleware: (getDefaultMiddlewares) =>
-    getDefaultMiddlewares({
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(baseApi.middleware),
+    })
+      .concat(baseApi.middleware) // Keep baseApi middleware if used
+      .concat(carApi.middleware), // Add carApi middleware
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);

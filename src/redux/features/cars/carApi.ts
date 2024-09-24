@@ -1,42 +1,62 @@
-import { TQueryParam, TResponseRedux } from "../../../types/global";
-import { baseApi } from "../../api/baseApi";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Car, TResponseRedux } from "../../../types/global";
 
-const carApi = baseApi.injectEndpoints({
+export const carApi = createApi({
+  reducerPath: "carApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000/api/v1" }),
+  tagTypes: ["Cars"],
   endpoints: (builder) => ({
-    getAllCars: builder.query({
-      query: (args) => {
+    getAllCars: builder.query<
+      {
+        data: Car[];
+        totalPages: number;
+        currentPage: number;
+        totalItems: number;
+      },
+      any
+    >({
+      query: (filters) => {
+        const {
+          manufacturers = [],
+          vehicleTypes = [],
+          priceRange = [],
+          page = 1,
+          limit = 4,
+        } = filters || {};
         const params = new URLSearchParams();
 
-        if (args) {
-          args.forEach((item: TQueryParam) => {
-            params.append(item.name, item.value as string);
-          });
+        if (manufacturers.length)
+          params.append("manufacturers", manufacturers.join(","));
+        if (vehicleTypes.length)
+          params.append("vehicleTypes", vehicleTypes.join(","));
+        if (priceRange.length === 2) {
+          params.append("minPrice", priceRange[0].toString());
+          params.append("maxPrice", priceRange[1].toString());
         }
+        params.append("page", page.toString());
+        params.append("limit", limit.toString());
 
-        return {
-          url: "/cars", // Replace with your actual API endpoint
-          method: "GET",
-          params: params, // Attach query params if any
-        };
+        return `cars?${params.toString()}`;
       },
-      providesTags: ["Cars"], // Optional: use this for cache invalidation if needed
-      transformResponse: (response: TResponseRedux<any>) => {
+      transformResponse: (response: TResponseRedux<Car[]>) => {
+        // Ensure we are correctly returning all relevant fields
+        console.log("API Response:", response); // Log response to inspect data
         return {
-          data: response.data, // Extract the data you need
-          meta: response.meta, // Optional: Meta data like pagination info
+          data: response.data || [], // Cars data
+          totalPages: response.totalPages ?? 1, // Ensure totalPages comes directly from the response
+          currentPage: response.currentPage ?? 1, // Current page from the response
+          totalItems: response.totalItems ?? 0, // Total items from the response
         };
       },
     }),
-    getCarById: builder.query({
-      query: (carId: string) => ({
-        url: `/cars/${carId}`, // URL to fetch the single car details by ID
+    getCarById: builder.query<Car, string>({
+      query: (carId) => ({
+        url: `/cars/${carId}`,
         method: "GET",
       }),
       providesTags: ["Cars"],
-      transformResponse: (response: TResponseRedux<any>) => response.data, // Transform the response to extract car data
+      transformResponse: (response: TResponseRedux<Car>) => response.data,
     }),
-
-    // You can add more car-related endpoints here, e.g., addCar, updateCar, deleteCar
   }),
 });
 

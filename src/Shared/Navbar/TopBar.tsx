@@ -1,50 +1,76 @@
-import { MdLocationOn } from "react-icons/md";
+import { useState } from "react";
+// import { MdLocationOn } from "react-icons/md";
+// import { Link } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { logout, selectCurrentUser } from "../../redux/features/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const TopBar = () => {
   const user = useAppSelector(selectCurrentUser);
-  console.log(user);
   const dispatch = useAppDispatch();
+
+  // State to manage dropdown visibility
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
+  // Function to toggle dropdown
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
-    <div className="px-3 xl:px-6 py-3 xl:py-4 uppercase text-sm font-semibold bg-gray-100">
-      <div className="flex">
-        <nav>
-          <div className="flex gap-1">
-            <p className="color-brand">Phone:</p>
-            <Link to="/">+123-567-8908</Link>
-          </div>
-        </nav>
-        <div className="flex-grow"></div>
-        <nav>
-          <div className="flex gap-4">
-            <Link to="/faq" className="hidden sm:block">
+    <div className="navbar bg-base-100">
+      <div className="flex-1">
+        <p className="font-semibold text-xl">+1234567890</p>
+      </div>
+      <div className="flex-none gap-2">
+        <div className="form-control">
+          <Link to="/faq">
+            <p className="mr-2 text-lg font-semibold hover:text-orange-500 cursor-pointer">
               Faq
+            </p>
+          </Link>
+        </div>
+        {user ? (
+          <>
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img alt="profile" src="" />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <a className="justify-between">{user?.name}</a>
+                </li>
+                <li>
+                  <a>Dashboard</a>
+                </li>
+                <li>
+                  <a onClick={handleLogout}>Logout</a>
+                </li>
+              </ul>
+            </div>
+          </>
+        ) : (
+          <>
+            <Link to="/login">
+              <p className="mr-2 text-lg font-semibold hover:text-orange-500 cursor-pointer">
+                Login
+              </p>
             </Link>
-            {user ? (
-              <button onClick={handleLogout} className="text-red-500">
-                Logout
-                <p>{user.name}</p>
-              </button>
-            ) : (
-              <>
-                <Link to="/login">Register</Link>
-                <Link to="/login">
-                  <div className="flex gap-1 items-center">
-                    <MdLocationOn />
-                    <p>Login</p>
-                  </div>
-                </Link>
-              </>
-            )}
-          </div>
-        </nav>
+          </>
+        )}
       </div>
     </div>
   );

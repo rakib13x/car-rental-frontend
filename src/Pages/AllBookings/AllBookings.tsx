@@ -64,23 +64,32 @@ const AllBookings = () => {
               <p>Car: {booking.car.name}</p>
               <p>User: {booking.user.name}</p>
               <p>Date: {new Date(booking.date).toLocaleDateString()}</p>
+              <p>Return Time: {booking.endTime}</p>
+              <p>Cost: {booking.totalCost}</p>
               {/* Input for End Time */}
-              <input
-                type="text"
-                placeholder="Enter end time (e.g. 18:00)"
-                value={selectedBookingId === booking._id ? endTime : ""}
-                onChange={(e) => {
-                  setEndTime(e.target.value);
-                  setSelectedBookingId(booking._id);
-                }}
-                disabled={isReturning}
-              />
-              <button
-                onClick={() => handleReturnCar(booking._id)}
-                disabled={isReturning || selectedBookingId !== booking._id}
-              >
-                {isReturning ? "Returning..." : "Return Car"}
-              </button>
+
+              {booking.endTime ? (
+                <p>Returned</p>
+              ) : (
+                <>
+                  <input
+                    type="text"
+                    placeholder="Enter end time (e.g. 18:00)"
+                    value={selectedBookingId === booking._id ? endTime : ""}
+                    onChange={(e) => {
+                      setEndTime(e.target.value);
+                      setSelectedBookingId(booking._id);
+                    }}
+                    disabled={isReturning}
+                  />
+                  <button
+                    onClick={() => handleReturnCar(booking._id)}
+                    disabled={isReturning || selectedBookingId !== booking._id}
+                  >
+                    {isReturning ? "Returning..." : "Return Car"}
+                  </button>
+                </>
+              )}
             </li>
           ))}
         </ul>

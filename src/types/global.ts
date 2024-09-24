@@ -1,5 +1,4 @@
-import { BaseQueryApi } from "@reduxjs/toolkit/query";
-
+// Define the structure for error responses
 export type TError = {
   data: {
     message: string;
@@ -9,6 +8,22 @@ export type TError = {
   status: number;
 };
 
+// Interface to describe the car object structure
+export interface Car {
+  _id: string;
+  name: string;
+  image: string;
+  description: string;
+  pricePerHour: number;
+  Manufacturers: string;
+  vehicleType: string;
+  rate?: number;
+  status?: string;
+  fuel?: string;
+  seats?: number;
+  transmission?: string;
+}
+
 export type TMeta = {
   limit: number;
   page: number;
@@ -16,15 +31,15 @@ export type TMeta = {
   totalPage: number;
 };
 
-export type TResponse<T> = {
-  data?: T;
-  error?: TError;
-  meta?: TMeta;
+export interface TResponseRedux<T> {
+  statusCode: number;
   success: boolean;
   message: string;
-};
-
-export type TResponseRedux<T> = TResponse<T> & BaseQueryApi;
+  data: T;
+  totalPages?: number;
+  currentPage?: number;
+  totalItems?: number;
+}
 
 export type TQueryParam = {
   name: string;
