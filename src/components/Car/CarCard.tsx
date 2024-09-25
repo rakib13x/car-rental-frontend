@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Car } from "../../types/global";
 
 interface CarProps {
-  car?: Car; // Made 'car' optional
+  car?: Car;
 }
 
 const getStarIcons = (rate: number = 0) => {

@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../LayOut/Main";
 import About from "../Pages/About/About";
 import AllBookings from "../Pages/AllBookings/AllBookings";
-import CarDetails from "../Pages/CarDetails/CarDetails";
 import CarDetails2 from "../Pages/CarDetails2/CarDetails2";
 import Cars from "../Pages/Cars/Cars";
 import Checkout from "../Pages/CheckOut/CheckOut";
@@ -54,12 +53,12 @@ export const router = createBrowserRouter([
         path: "cars",
         element: <Cars />,
       },
+      // {
+      //   path: "cars/:carId",
+      //   element: <CarDetails />,
+      // },
       {
         path: "cars/:carId",
-        element: <CarDetails />,
-      },
-      {
-        path: "carDetails2",
         element: <CarDetails2 />,
       },
       {

@@ -10,7 +10,6 @@ import Navbar from "../../Shared/Navbar/Navbar";
 const CarDetails = () => {
   const { carId } = useParams(); // Get the car ID from the route parameters
 
-  // Fetch car details
   const {
     data: car,
     isLoading: carLoading,

@@ -1,4 +1,56 @@
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 const Checkout = () => {
+  const location = useLocation();
+  const bookingData = location.state || {};
+  const { carName, carImage, price, additionalFeatures, date, startTime } =
+    bookingData;
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    address: "",
+    city: "",
+    region: "",
+    zipCode: "",
+    country: "",
+    phone: "",
+    nidNumber: "",
+    license: "",
+  });
+
+  const navigate = useNavigate();
+
+  const calculateAdditionalFeatures = () => {
+    let featureCost = 0;
+    if (additionalFeatures?.insurance) featureCost += 15;
+    if (additionalFeatures?.gps) featureCost += 5;
+    if (additionalFeatures?.childSeat) featureCost += 7;
+    return featureCost;
+  };
+
+  const calculateTotalPrice = () => {
+    return (price || 0) + calculateAdditionalFeatures();
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleConfirm = () => {
+    const combinedData = {
+      ...bookingData,
+      ...formData,
+    };
+    navigate("/confirm", { state: combinedData });
+  };
+
   return (
     <div className="container mx-auto">
       <div className="w-full mx-auto">
@@ -14,29 +66,37 @@ const Checkout = () => {
             name="email"
             className="pb-4 rounded border-b border-gray-200 w-full placeholder-gray-600 focus:outline-0"
             placeholder="Email"
+            value={formData.email}
+            onChange={handleInputChange}
           />
         </div>
         <div className="col-span-5"></div>
       </div>
 
+      {/* Booking Details */}
       <div className="w-full">
         <div className="w-full px-4 sm:px-0 md:px-6">
           <p className="text-xl font-semibold leading-tight text-gray-800">
             Booking Details
           </p>
+
+          {/* Input fields for user's details */}
           <div className="flex sm:flex-row md:flex-col flex-col lg:flex-row">
             <input
               type="text"
               name="firstName"
               className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 focus:outline-0"
               placeholder="First Name"
+              value={formData.firstName}
+              onChange={handleInputChange}
             />
-
             <input
               type="text"
               name="lastName"
               className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 sm:ml-8 md:ml-0 lg:ml-8 focus:outline-0"
               placeholder="Last Name"
+              value={formData.lastName}
+              onChange={handleInputChange}
             />
           </div>
           <input
@@ -44,6 +104,8 @@ const Checkout = () => {
             name="address"
             className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 focus:outline-0"
             placeholder="User Address"
+            value={formData.address}
+            onChange={handleInputChange}
           />
 
           <div className="flex md:flex-row flex-col relative">
@@ -53,6 +115,8 @@ const Checkout = () => {
                 name="city"
                 className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 focus:outline-0"
                 placeholder="Town/City"
+                value={formData.city}
+                onChange={handleInputChange}
               />
             </div>
             <div className="mx-auto mt-6 w-full md:ml-8">
@@ -61,6 +125,8 @@ const Checkout = () => {
                 name="region"
                 className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 focus:outline-0"
                 placeholder="Region (optional)"
+                value={formData.region}
+                onChange={handleInputChange}
               />
             </div>
           </div>
@@ -71,6 +137,8 @@ const Checkout = () => {
                 name="zipCode"
                 className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 focus:outline-0"
                 placeholder="Zip Code"
+                value={formData.zipCode}
+                onChange={handleInputChange}
               />
             </div>
             <div className="mx-auto mt-6 w-full md:ml-8">
@@ -79,6 +147,8 @@ const Checkout = () => {
                 name="country"
                 className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 focus:outline-0"
                 placeholder="Country"
+                value={formData.country}
+                onChange={handleInputChange}
               />
             </div>
           </div>
@@ -87,31 +157,29 @@ const Checkout = () => {
             name="phone"
             className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 focus:outline-0"
             placeholder="Phone Number"
+            value={formData.phone}
+            onChange={handleInputChange}
           />
           <input
             type="number"
             name="nidNumber"
             className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 focus:outline-0"
             placeholder="Nid Number"
+            value={formData.nidNumber}
+            onChange={handleInputChange}
           />
           <input
             type="number"
             name="license"
             className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 focus:outline-0"
             placeholder="Driving License"
+            value={formData.license}
+            onChange={handleInputChange}
           />
-          <div className="flex mt-4">
-            <input
-              type="checkbox"
-              className="w-5 h-5 accent-gray-800 lg:mt-5 cursor-pointer"
-            />
-            <p className="text-sm leading-none text-gray-600 pl-2 lg:mt-6 md:mt-1 mt-1">
-              Save this information for next time.
-            </p>
-          </div>
         </div>
       </div>
 
+      {/* Summary Section */}
       <div className="relative md:pb-20 pb-9 px-4 sm:px-0 md:px-6">
         <div className="grid grid-cols-12">
           <div className="lg:col-start-1 md:col-start-0 lg:col-span-12 md:col-span-12 sm:col-span-12 col-span-12">
@@ -119,36 +187,54 @@ const Checkout = () => {
               <p className="text-xl font-semibold leading-tight text-gray-800">
                 Order Summary
               </p>
-              <div className="product-container">
-                <div className="sm:flex items-start mt-10">
-                  <div className="sm:w-48 w-full">
-                    <img
-                      src="https://tuk-cdn.s3.amazonaws.com/can-uploader/Rectangle%20193.png"
-                      className="w-full"
-                      alt=""
-                    />
+              <div className="sm:flex items-start mt-10">
+                <div className="sm:w-48 w-full">
+                  <img
+                    src={
+                      carImage ||
+                      "https://tuk-cdn.s3.amazonaws.com/can-uploader/Rectangle%20193.png"
+                    }
+                    className="w-full"
+                    alt="Car Image"
+                  />
+                </div>
+                <div className="flex items-start justify-between w-full">
+                  <div className="sm:ml-8">
+                    <p className="text-lg font-medium leading-none text-gray-800 mt-6 sm:mt-0">
+                      {carName || "Car Name"}
+                    </p>
+                    <p className="text-base leading-none text-gray-600 mt-4">
+                      Booking Date: {date || "N/A"}
+                    </p>
+                    <p className="text-base leading-none text-gray-600 mt-4">
+                      Start Time: {startTime || "N/A"}
+                    </p>
+                    <p className="text-base leading-none text-gray-600 mt-4">
+                      Additional Features:
+                      {additionalFeatures?.insurance ? " Insurance" : ""}
+                      {additionalFeatures?.gps ? ", GPS" : ""}
+                      {additionalFeatures?.childSeat ? ", Child Seat" : ""}
+                    </p>
                   </div>
-                  <div className="flex items-start justify-between w-full">
-                    <div className="sm:ml-8">
-                      <p className="text-lg font-medium leading-none text-gray-800 mt-6 sm:mt-0">
-                        Car Name
-                      </p>
-                      <p className="text-base leading-none text-gray-600 mt-4">
-                        Color
-                      </p>
-                      <p className="text-base leading-none text-gray-600 mt-4">
-                        Small
-                      </p>
-                      <p className="text-base leading-none text-gray-600 mt-4">
-                        Additional Feature
-                      </p>
-                    </div>
-                    <p className="text-lg font-semibold leading-none text-gray-800 mt-6 sm:mt-0">
-                      $pricePerHour
+                  <p className="text-lg font-semibold leading-none text-gray-800 mt-6 sm:mt-0">
+                    ${price || "0"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="product-container">
+                <div className="flex justify-between mt-6">
+                  <div className="title">
+                    <p className="text-lg leading-none text-gray-600">
+                      Additional Feature Charges
+                    </p>
+                  </div>
+                  <div className="price">
+                    <p className="text-lg font-semibold leading-none text-gray-600">
+                      ${calculateAdditionalFeatures()}
                     </p>
                   </div>
                 </div>
-                <div className="sm:flex items-start mt-10"></div>
 
                 <div className="flex justify-between mt-6">
                   <div className="title">
@@ -158,22 +244,11 @@ const Checkout = () => {
                   </div>
                   <div className="price">
                     <p className="text-lg font-semibold leading-none text-gray-600">
-                      $80
+                      ${calculateTotalPrice()}
                     </p>
                   </div>
                 </div>
-                <div className="flex justify-between mt-6">
-                  <div className="title">
-                    <p className="text-lg leading-none text-gray-600">
-                      Shipping charges
-                    </p>
-                  </div>
-                  <div className="price">
-                    <p className="text-lg font-semibold leading-none text-gray-600">
-                      $90
-                    </p>
-                  </div>
-                </div>
+
                 <hr className="w-full bg-gray-200 border mt-6 h-[1px]" />
                 <div className="flex justify-between mt-6">
                   <div className="title">
@@ -181,15 +256,16 @@ const Checkout = () => {
                       Total
                     </p>
                   </div>
-
                   <div className="price">
                     <p className="text-2xl font-semibold leading-normal text-gray-800">
-                      $170
+                      ${calculateTotalPrice()}
                     </p>
                   </div>
                 </div>
+
                 <hr className="w-full bg-gray-200 border mt-6 h-[1px]" />
 
+                {/* Payment Method */}
                 <div className="grid grid-cols-12 lg:mt-16 md:mt-16 mt-8">
                   <div className="sm:col-start-1 col-start-1 sm:col-span-10 col-span-12 md:col-span-12 lg:px-0 sm:px-0 md:px-0">
                     <p className="text-xl font-semibold leading-tight text-gray-800">
@@ -202,7 +278,6 @@ const Checkout = () => {
                         className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 focus:outline-0"
                         placeholder="Name on Card"
                       />
-
                       <input
                         type="text"
                         name="cardNumber"
@@ -230,11 +305,13 @@ const Checkout = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex w-full md:pt-12 pt-8">
-                  <button className="text-base font-medium leading-none text-white bg-gray-800 py-4 w-full hover:bg-gray-700 transform duration-300 ease-in-out">
-                    Confirm
-                  </button>
-                </div>
+
+                <button
+                  className="text-base font-medium leading-none text-white bg-gray-800 py-4 w-full hover:bg-gray-700 transform duration-300 ease-in-out"
+                  onClick={handleConfirm}
+                >
+                  Confirm
+                </button>
               </div>
             </div>
           </div>
