@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
+import userImage from "../../assets/images/user-1.jpg";
 
 import { LiaQuoteLeftSolid } from "react-icons/lia";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
@@ -123,7 +124,7 @@ const Testimonial = () => {
               >
                 <div
                   className="slick-slide-thumbnail w-[64px] h-[64px] relative z-10 bg-cover bg-center rounded-full border-4 shadow-lg m-4 mt-1"
-                  style={{ backgroundImage: `url(${slide.image})` }}
+                  style={{ backgroundImage: `url(${userImage})` }}
                 ></div>
               </div>
             ))}

@@ -6,6 +6,7 @@ import Hotdeals from "../../components/HotDeals/HotDeals";
 import HowItWorks from "../../components/HowItWorks";
 import Mobile from "../../components/Mobile/Mobile";
 import Testimonial from "../../components/Testimonial/Testimonial";
+import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 
 const Home = () => {
@@ -22,6 +23,8 @@ const Home = () => {
       <Collaborate /> */}
       <Testimonial />
       <CallToAction />
+
+      <Footer />
     </div>
   );
 };

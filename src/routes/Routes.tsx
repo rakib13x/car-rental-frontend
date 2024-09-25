@@ -3,7 +3,10 @@ import Main from "../LayOut/Main";
 import About from "../Pages/About/About";
 import AllBookings from "../Pages/AllBookings/AllBookings";
 import CarDetails from "../Pages/CarDetails/CarDetails";
+import CarDetails2 from "../Pages/CarDetails2/CarDetails2";
 import Cars from "../Pages/Cars/Cars";
+import Checkout from "../Pages/CheckOut/CheckOut";
+import Confirm from "../Pages/Confirm/Confirm";
 import Demo from "../Pages/Demo/Demo";
 import ErrorPage from "../Pages/Error/ErrorPage";
 import Home from "../Pages/Home/Home";
@@ -54,6 +57,18 @@ export const router = createBrowserRouter([
       {
         path: "cars/:carId",
         element: <CarDetails />,
+      },
+      {
+        path: "carDetails2",
+        element: <CarDetails2 />,
+      },
+      {
+        path: "checkout",
+        element: <Checkout />,
+      },
+      {
+        path: "confirm",
+        element: <Confirm />,
       },
       {
         path: "mybookings",

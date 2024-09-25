@@ -59,6 +59,14 @@
   } */
 }
 
+.car-carousel .slick-slide > div {
+  padding: 0 16px;
+}
+
+.car-carousel .slick-list {
+  margin: 0 -16px;
+}
+
 @layer base {
   * {
     @apply border-border;

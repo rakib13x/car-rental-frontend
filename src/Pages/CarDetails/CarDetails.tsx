@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { Input } from "../../components/ui/Input";
 import { useBookCarMutation } from "../../redux/features/booking/bookingAPi";
 import { useGetCarByIdQuery } from "../../redux/features/cars/carApi";
+import Footer from "../../Shared/Footer/Footer";
+import Navbar from "../../Shared/Navbar/Navbar";
 // Import booking API
 
 const CarDetails = () => {
@@ -60,56 +62,60 @@ const CarDetails = () => {
   const isCarBooked = car?.status === "not available"; // Assume "not available" means booked
 
   return (
-    <div>
-      <h2>Car Details</h2>
-      {car ? (
-        <div>
-          <h3>{car.name}</h3>
-          <p>Model: {car.model}</p>
-          <p>Manufacturer: {car.manufacturer}</p>
-          <p>Price: {car.price}</p>
-          <p>Year: {car.year}</p>
-        </div>
-      ) : (
-        <p>Car not found.</p>
-      )}
-
-      {/* Booking Form */}
-      <form onSubmit={handleSubmit}>
-        <div className="grid gap-4">
-          <Input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleInputChange}
-            placeholder="Date"
-          />
-          <Input
-            type="text"
-            name="time"
-            value={formData.time}
-            onChange={handleInputChange}
-            placeholder="Start Time (HH:MM)"
-          />
-
-          <button
-            type="submit"
-            className="rounded-full bg-cyan-500 text-white hover:bg-cyan-600"
-            disabled={isCarBooked || bookingLoading || carLoading}
-          >
-            {isCarBooked
-              ? "Booked"
-              : bookingLoading
-              ? "Booking..."
-              : "Book Car"}
-          </button>
-        </div>
-
-        {bookingError && (
-          <p className="text-red-500">Error booking car. Please try again.</p>
+    <>
+      <Navbar />
+      <div>
+        <h2>Car Details</h2>
+        {car ? (
+          <div>
+            <h3>{car.name}</h3>
+            <p>Model: {car.name}</p>
+            <p>Manufacturer: {car.Manufacturers}</p>
+            <p>Price: {car.pricePerHour}</p>
+            <p>Year: {car.year}</p>
+          </div>
+        ) : (
+          <p>Car not found.</p>
         )}
-      </form>
-    </div>
+
+        {/* Booking Form */}
+        <form onSubmit={handleSubmit}>
+          <div className="grid gap-4">
+            <Input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleInputChange}
+              placeholder="Date"
+            />
+            <Input
+              type="text"
+              name="time"
+              value={formData.time}
+              onChange={handleInputChange}
+              placeholder="Start Time (HH:MM)"
+            />
+
+            <button
+              type="submit"
+              className="rounded-full bg-cyan-500 text-white hover:bg-cyan-600"
+              disabled={isCarBooked || bookingLoading || carLoading}
+            >
+              {isCarBooked
+                ? "Booked"
+                : bookingLoading
+                ? "Booking..."
+                : "Book Car"}
+            </button>
+          </div>
+
+          {bookingError && (
+            <p className="text-red-500">Error booking car. Please try again.</p>
+          )}
+        </form>
+      </div>
+      <Footer />
+    </>
   );
 };
 
