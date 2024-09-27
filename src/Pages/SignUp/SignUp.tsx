@@ -15,32 +15,61 @@ const Signup = () => {
     phone: "",
     address: "",
     password: "",
+    profilePhoto: null as File | null,
   });
 
-  // Handle form field change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submit
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFormData({ ...formData, profilePhoto: file });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitting form data:", formData);
+
+    if (formData.password.length < 8) {
+      toast.error("Password must be at least 8 characters long!");
+      return;
+    }
+
+    const formDataToSubmit = new FormData();
+    formDataToSubmit.append("name", formData.name);
+    formDataToSubmit.append("email", formData.email);
+    formDataToSubmit.append("phone", formData.phone);
+    formDataToSubmit.append("address", formData.address);
+    formDataToSubmit.append("password", formData.password);
+
+    if (formData.profilePhoto) {
+      formDataToSubmit.append("profilePhoto", formData.profilePhoto);
+    }
+
     try {
-      const response = await signup(formData).unwrap(); // Signup mutation
+      console.log("Sending signup request...");
+      const response = await signup(formDataToSubmit).unwrap();
+      console.log("Response received:", response);
+
       if (response?.data) {
-        dispatch(
-          setUser({
-            user: response.data, // Assuming server returns user data
-          })
-        );
+        dispatch(setUser({ user: response.data }));
         toast.success("Signup successful!");
       } else {
         toast.error("Signup failed. Please try again.");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Signup error:", error);
-      toast.error("Signup failed. Please check your information.");
+
+      if (error.data && error.data.errors) {
+        error.data.errors.forEach((err: any) => {
+          toast.error(`${err.path}: ${err.message}`);
+        });
+      } else {
+        toast.error("Signup failed. Please check your information.");
+      }
+    } finally {
+      console.log("Signup request completed."); // Confirm completion
     }
   };
 
@@ -50,7 +79,7 @@ const Signup = () => {
         <div className="max-w-md mx-auto">
           <h1 className="text-2xl font-bold text-center mb-6">Sign Up</h1>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
             <div className="grid gap-4">
               <Input
                 type="text"
@@ -58,20 +87,23 @@ const Signup = () => {
                 placeholder="Name"
                 value={formData.name}
                 onChange={handleChange}
+                required
               />
               <Input
-                type="text"
+                type="email"
                 name="email"
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
               <Input
-                type="text"
+                type="tel"
                 name="phone"
                 placeholder="Phone"
                 value={formData.phone}
                 onChange={handleChange}
+                required
               />
               <Input
                 type="text"
@@ -79,6 +111,7 @@ const Signup = () => {
                 placeholder="Address"
                 value={formData.address}
                 onChange={handleChange}
+                required
               />
               <Input
                 type="password"
@@ -86,7 +119,17 @@ const Signup = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
+                required
               />
+
+              {/* Input for Profile Image */}
+              <Input
+                type="file"
+                name="profilePhoto"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+
               <Button type="submit" disabled={isLoading}>
                 {isLoading ? "Signing up..." : "Sign Up"}
               </Button>

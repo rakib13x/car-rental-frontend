@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const TopBar = () => {
   const user = useAppSelector(selectCurrentUser);
+  console.log(user);
   const dispatch = useAppDispatch();
 
   // State to manage dropdown visibility
@@ -43,7 +44,7 @@ const TopBar = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img alt="profile" src="" />
+                  <img alt="profile" src={user.profilePhoto} />
                 </div>
               </div>
               <ul

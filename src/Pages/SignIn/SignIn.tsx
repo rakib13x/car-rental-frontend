@@ -28,7 +28,6 @@ const SignIn = () => {
       const response = await login(formData).unwrap();
 
       dispatch(setUser({ user: response.data, token: response.token }));
-      console.log("Token created:", response.token);
       toast.success("Login successful!");
       navigate("/");
     } catch (error) {
