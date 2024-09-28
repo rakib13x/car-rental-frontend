@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-// Type for the User and Auth State
 export type TUser = {
   _id: string;
   name: string;
@@ -10,6 +9,7 @@ export type TUser = {
   phone: string;
   address: string;
   profilePhoto: string | null;
+  status: string;
   createdAt: string;
   updatedAt: string;
 };

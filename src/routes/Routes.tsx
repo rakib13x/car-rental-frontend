@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import DashBoard from "../LayOut/DashBoard";
 import Main from "../LayOut/Main";
 import About from "../Pages/About/About";
 import AllBookings from "../Pages/AllBookings/AllBookings";
@@ -6,6 +7,7 @@ import CarDetails2 from "../Pages/CarDetails2/CarDetails2";
 import Cars from "../Pages/Cars/Cars";
 import Checkout from "../Pages/CheckOut/CheckOut";
 import Confirm from "../Pages/Confirm/Confirm";
+import AllUsers from "../Pages/Dashboard/Admin/AllUsers/AllUsers";
 import Demo from "../Pages/Demo/Demo";
 import ErrorPage from "../Pages/Error/ErrorPage";
 import Home from "../Pages/Home/Home";
@@ -84,6 +86,21 @@ export const router = createBrowserRouter([
             <AllBookings />
           </AdminRoute>
         ),
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <DashBoard />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "allbookings",
+        element: <AllBookings />,
+      },
+      {
+        path: "allusers",
+        element: <AllUsers />,
       },
     ],
   },
