@@ -7,6 +7,7 @@ import CarDetails2 from "../Pages/CarDetails2/CarDetails2";
 import Cars from "../Pages/Cars/Cars";
 import Checkout from "../Pages/CheckOut/CheckOut";
 import Confirm from "../Pages/Confirm/Confirm";
+import AllCars from "../Pages/Dashboard/Admin/AllCars/AllCars";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers/AllUsers";
 import Demo from "../Pages/Demo/Demo";
 import ErrorPage from "../Pages/Error/ErrorPage";
@@ -101,6 +102,10 @@ export const router = createBrowserRouter([
       {
         path: "allusers",
         element: <AllUsers />,
+      },
+      {
+        path: "allcars",
+        element: <AllCars />,
       },
     ],
   },
