@@ -11,7 +11,7 @@ const DashBoard = () => {
                 <NavLink to="/dashboard/adminHome">Admin Home</NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/all-parcels">All Parcels</NavLink>
+                <NavLink to="/dashboard/allbookings">All bookings</NavLink>
               </li>
               <li>
                 <NavLink to="/dashboard/allUsers">All Users</NavLink>
