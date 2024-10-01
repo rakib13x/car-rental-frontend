@@ -1,9 +1,11 @@
 import { useState } from "react";
 import AddModal from "../../../../Modal/AddModal";
+import UpdateModal from "../../../../Modal/UpdateModal";
 import { useGetAllCarsQuery } from "../../../../redux/features/cars/carApi";
 
 const AllCars = () => {
   const [showModal, setShowModal] = useState(false);
+  const [updateShowModal, setUpdateShowModal] = useState(false);
   const [page, setPage] = useState(1);
   const {
     data: carData,
@@ -22,6 +24,9 @@ const AllCars = () => {
   // Function to toggle modal visibility
   const toggleModal = () => {
     setShowModal(!showModal);
+  };
+  const updateToggleModal = () => {
+    setUpdateShowModal(!updateShowModal);
   };
 
   return (
@@ -205,8 +210,17 @@ const AllCars = () => {
                   </td>
                   <td>
                     <div className="flex items-center">
-                      <button className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
-                        Edit
+                      {updateShowModal && (
+                        <UpdateModal
+                          updateShowModal={updateShowModal}
+                          updateToggleModal={updateToggleModal}
+                        />
+                      )}
+                      <button
+                        className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
+                        onClick={updateToggleModal}
+                      >
+                        Update
                       </button>
                       <button className="bg-gray-100 mr-5 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
                         Delete
