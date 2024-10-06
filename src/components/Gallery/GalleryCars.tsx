@@ -5,19 +5,19 @@ export default function GalleryCars({ count }: { count?: number }) {
 
   const data = [
     {
-      image: "/car-9.jpg",
+      image: "src/assets/images/classic-1.webp",
       name: "Fastest Car Ever",
       vendor: "Mercedes",
       link: "#",
     },
     {
-      image: "/car-8.jpg",
+      image: "src/assets/images/classic-2.webp",
       name: "Feel The Turbo",
       vendor: "BMW",
       link: "#",
     },
     {
-      image: "/car-6.jpg",
+      image: "src/assets/images/classic-3.webp",
       name: "Offroad Monster",
       vendor: "Toyota",
       link: "#",

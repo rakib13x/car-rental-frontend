@@ -1,4 +1,4 @@
-import mobile from "../../assets/images/mobile.png";
+import mobile from "../../assets/images/mobile-car.webp";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
 import SectionWrapper from "../../Shared/SectionWrapper/SectionWrapper";
 import AppleButton from "./AppleButton";

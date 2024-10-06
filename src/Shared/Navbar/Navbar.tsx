@@ -1,17 +1,30 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-// import TopBar from "./top-bar";
+import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
 import { PiShareNetwork } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { selectCurrentUser } from "../../redux/features/authSlice";
+import { useAppSelector } from "../../redux/hooks";
 import TopBar from "./TopBar";
 
 const Navbar = () => {
   const location = useLocation();
   const currentRoute = location.pathname;
   const [navOpen, setNavOpen] = useState(false);
+  const [dashboardLink, setDashboardLink] = useState("/dashboard");
+
+  // Mock user role. You should replace this with actual logic to get the user role.
+  const user = useAppSelector(selectCurrentUser); // Assume it's fetched from localStorage
+
+  useEffect(() => {
+    // Set dashboard link based on the user role
+    if (user?.role === "admin") {
+      setDashboardLink("/dashboard/adminHome");
+    } else if (user?.role === "user") {
+      setDashboardLink("/dashboard/myProfile");
+    }
+  }, [user]);
 
   function toggleMenu() {
     setNavOpen(!navOpen);
@@ -20,11 +33,10 @@ const Navbar = () => {
   const MainMenu = [
     { label: "Home", href: "/" },
     { label: "About us", href: "/about" },
-    { label: "Hot deals", href: "/hot-deals" },
     { label: "Cars", href: "/cars" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Blog", href: "/blog" },
     { label: "Contact us", href: "/contact" },
+    // Make the dashboard route dynamic
+    { label: "Dashboard", href: dashboardLink },
   ];
 
   return (
@@ -49,8 +61,7 @@ const Navbar = () => {
                 <Link
                   key={index}
                   className={`leading-5 pb-1 pt-1 hover:text-black relative w-fit block after:block after:content-[''] after:absolute after:h-[2px] after:bg-orange-500 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-left
-                  ${currentRoute === link.href && "after:scale-x-100"}
-                  `}
+                  ${currentRoute === link.href && "after:scale-x-100"}`}
                   to={link.href}
                   onClick={() => setNavOpen(false)}
                 >

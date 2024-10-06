@@ -6,6 +6,8 @@ import PageTitle from "../../components/PageTitle";
 import Pagination from "../../components/Pagination";
 import SidebarFilter from "../../components/SideBarFilter";
 import { useGetAllCarsQuery } from "../../redux/features/cars/carApi";
+import Footer from "../../Shared/Footer/Footer";
+import Navbar from "../../Shared/Navbar/Navbar";
 import SectionWrapper from "../../Shared/SectionWrapper/SectionWrapper";
 import { Car } from "../../types/global";
 import { getErrorMessage } from "../../utils/getErrorMessage";
@@ -46,6 +48,7 @@ export default function Cars() {
 
   return (
     <>
+      <Navbar />
       <PageTitle title={"Car List"} />
       <SectionWrapper>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -72,6 +75,7 @@ export default function Cars() {
           </div>
         </div>
       </SectionWrapper>
+      <Footer />
     </>
   );
 }

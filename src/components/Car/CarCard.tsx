@@ -1,22 +1,24 @@
 // src/components/Car/CarCard.tsx
 
+import { FaStar } from "react-icons/fa6";
 import { GiGearStickPattern } from "react-icons/gi";
-import { LuFuel, LuStar } from "react-icons/lu";
+import { LuFuel } from "react-icons/lu";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Car } from "../../types/global";
 
 interface CarProps {
   car?: Car;
+  count?: number;
 }
 
 const getStarIcons = (rate: number = 0) => {
   const content = [];
   for (let i = 0; i < rate; i++) {
-    content.push(<LuStar className="text-orange-300" key={`star-${i}`} />);
+    content.push(<FaStar className="text-orange-300" key={`star-${i}`} />);
   }
   for (let i = 0; i < 5 - rate; i++) {
-    content.push(<LuStar className="text-gray-300" key={`gray-star-${i}`} />);
+    content.push(<FaStar className="text-orange-300" key={`gray-star-${i}`} />);
   }
   return content;
 };

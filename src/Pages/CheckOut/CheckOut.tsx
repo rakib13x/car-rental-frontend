@@ -265,47 +265,6 @@ const Checkout = () => {
 
                 <hr className="w-full bg-gray-200 border mt-6 h-[1px]" />
 
-                {/* Payment Method */}
-                <div className="grid grid-cols-12 lg:mt-16 md:mt-16 mt-8">
-                  <div className="sm:col-start-1 col-start-1 sm:col-span-10 col-span-12 md:col-span-12 lg:px-0 sm:px-0 md:px-0">
-                    <p className="text-xl font-semibold leading-tight text-gray-800">
-                      Payment Method
-                    </p>
-                    <div className="flex md:flex-row flex-col">
-                      <input
-                        type="text"
-                        name="cardName"
-                        className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 focus:outline-0"
-                        placeholder="Name on Card"
-                      />
-                      <input
-                        type="text"
-                        name="cardNumber"
-                        className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 md:ml-8 focus:outline-0"
-                        placeholder="Card Number"
-                      />
-                    </div>
-
-                    <div className="flex md:flex-row flex-col">
-                      <div className="mx-auto mt-6 w-full">
-                        <input
-                          type="text"
-                          name="expiryDate"
-                          className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 focus:outline-0"
-                          placeholder="Expiry Date"
-                        />
-                      </div>
-
-                      <input
-                        type="text"
-                        name="cvc"
-                        className="pb-4 rounded border-b border-gray-200 block w-full placeholder-gray-600 mt-6 md:ml-8 focus:outline-0"
-                        placeholder="CVC"
-                      />
-                    </div>
-                  </div>
-                </div>
-
                 <button
                   className="text-base font-medium leading-none text-white bg-gray-800 py-4 w-full hover:bg-gray-700 transform duration-300 ease-in-out"
                   onClick={handleConfirm}

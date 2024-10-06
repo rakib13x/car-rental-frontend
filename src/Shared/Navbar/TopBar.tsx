@@ -54,9 +54,11 @@ const TopBar = () => {
                 <li>
                   <a className="justify-between">{user?.name}</a>
                 </li>
-                <li>
-                  <a>Dashboard</a>
-                </li>
+                <Link to="/dashboard">
+                  <li>
+                    <a>Dashboard</a>
+                  </li>
+                </Link>
                 <li>
                   <a onClick={handleLogout}>Logout</a>
                 </li>

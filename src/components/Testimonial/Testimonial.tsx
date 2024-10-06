@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
-import userImage from "../../assets/images/user-1.jpg";
 
 import { LiaQuoteLeftSolid } from "react-icons/lia";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
@@ -22,28 +21,28 @@ const Testimonial = () => {
       position: "Sales",
       message:
         "Your service was the best I have taken in my experience, ever. Support staffs were quick and reliable with my issues and excited to work with you guys more. They will improve your website in 15 minutes. Hire the company and follow what they say and your business growth is going to jump like a skyrocket.",
-      image: "/user-1.jpg",
+      image: "src/assets/images/reviewer-2.jpeg",
     },
     {
       name: "Raymond Atkins",
       position: "Designer",
       message:
         "Your service was the best I have taken in my experience, ever. Support staffs were quick and reliable with my issues and excited to work with you guys more. They will improve your website in 15 minutes. Hire the company and follow what they say and your business growth is going to jump like a skyrocket.",
-      image: "/user-2.jpg",
+      image: "src/assets/images/reviewer-1.webp",
     },
     {
       name: "Katherine Moss",
       position: "Producor",
       message:
         "Your service was the best I have taken in my experience, ever. Support staffs were quick and reliable with my issues and excited to work with you guys more. They will improve your website in 15 minutes. Hire the company and follow what they say and your business growth is going to jump like a skyrocket.",
-      image: "/user-3.jpg",
+      image: "src/assets/images/reviewer-3.jpeg",
     },
     {
       name: "Jordan Mossiah",
       position: "Producor",
       message:
         "Your service was the best I have taken in my experience, ever. Support staffs were quick and reliable with my issues and excited to work with you guys more. They will improve your website in 15 minutes. Hire the company and follow what they say and your business growth is going to jump like a skyrocket.",
-      image: "/team-3.jpg",
+      image: "src/assets/images/reviewer-4.jpeg",
     },
   ];
   var settings = {
@@ -124,7 +123,7 @@ const Testimonial = () => {
               >
                 <div
                   className="slick-slide-thumbnail w-[64px] h-[64px] relative z-10 bg-cover bg-center rounded-full border-4 shadow-lg m-4 mt-1"
-                  style={{ backgroundImage: `url(${userImage})` }}
+                  style={{ backgroundImage: `url(${slide.image})` }}
                 ></div>
               </div>
             ))}

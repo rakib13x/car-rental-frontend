@@ -1,5 +1,3 @@
-// src/components/Pagination.tsx
-
 import { useEffect } from "react";
 
 interface PaginationProps {
@@ -35,14 +33,22 @@ export default function Pagination({
   console.log("totalPages", totalPages);
 
   return (
-    <div>
-      <button disabled={currentPage === 1} onClick={handlePreviousPage}>
-        Previous
+    <div className="join flex  justify-center items-center mt-8 gap-8">
+      <button
+        className="join-item btn btn-outline"
+        disabled={currentPage === 1}
+        onClick={handlePreviousPage}
+      >
+        Previous page
       </button>
 
-      <span>{`Page ${currentPage} of ${totalPages}`}</span>
+      <span className="text-center">{`Page ${currentPage} of ${totalPages}`}</span>
 
-      <button disabled={currentPage === totalPages} onClick={handleNextPage}>
+      <button
+        className="join-item btn btn-outline"
+        disabled={currentPage === totalPages}
+        onClick={handleNextPage}
+      >
         Next
       </button>
     </div>

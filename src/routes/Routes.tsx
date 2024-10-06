@@ -7,12 +7,16 @@ import CarDetails2 from "../Pages/CarDetails2/CarDetails2";
 import Cars from "../Pages/Cars/Cars";
 import Checkout from "../Pages/CheckOut/CheckOut";
 import Confirm from "../Pages/Confirm/Confirm";
+import Contact from "../Pages/Contact/Contact";
+import AdminHome from "../Pages/Dashboard/Admin/AdminHome/AdminHome";
 import AllCars from "../Pages/Dashboard/Admin/AllCars/AllCars";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers/AllUsers";
+import UserBookings from "../Pages/Dashboard/Admin/UserBookings/UserBookings";
+import MyBookings from "../Pages/Dashboard/User/MyBookings/MyBookings";
 import Demo from "../Pages/Demo/Demo";
 import ErrorPage from "../Pages/Error/ErrorPage";
 import Home from "../Pages/Home/Home";
-import MyBookings from "../Pages/MyBookings/MyBookings";
+import MyProfile from "../Pages/MyProfile/MyProfile";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import AdminRoute from "./AdminRoute";
@@ -45,6 +49,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
         path: "demo",
         element: (
           <AdminRoute>
@@ -72,22 +80,6 @@ export const router = createBrowserRouter([
         path: "confirm",
         element: <Confirm />,
       },
-      {
-        path: "mybookings",
-        element: (
-          <ProtectedRoute>
-            <MyBookings />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "allbookings",
-        element: (
-          <AdminRoute>
-            <AllBookings />
-          </AdminRoute>
-        ),
-      },
     ],
   },
   {
@@ -97,15 +89,51 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "allbookings",
-        element: <AllBookings />,
+        element: (
+          <AdminRoute>
+            <AllBookings />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "adminHome",
+        element: <AdminHome />,
       },
       {
         path: "allusers",
-        element: <AllUsers />,
+        element: (
+          <AdminRoute>
+            <AllUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "allcars",
-        element: <AllCars />,
+        element: (
+          <AdminRoute>
+            <AllCars />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "mybookings",
+        element: (
+          <ProtectedRoute>
+            <MyBookings />
+          </ProtectedRoute>
+        ),
+      },
+      // {
+      //   path: "allbookings",
+      //   element: <AllBookings />,
+      // },
+      {
+        path: "userbookings",
+        element: <UserBookings />,
+      },
+      {
+        path: "myProfile",
+        element: <MyProfile />,
       },
     ],
   },

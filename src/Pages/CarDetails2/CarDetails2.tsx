@@ -1,10 +1,25 @@
 import { useState } from "react";
+import { FaStar } from "react-icons/fa6";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetCarByIdQuery } from "../../redux/features/cars/carApi";
+import Footer from "../../Shared/Footer/Footer";
+import Navbar from "../../Shared/Navbar/Navbar";
 
 const CarDetails2 = () => {
   const { carId } = useParams();
   const navigate = useNavigate();
+  const getStarIcons = (rate: number = 0) => {
+    const content = [];
+    for (let i = 0; i < rate; i++) {
+      content.push(<FaStar className="text-orange-300" key={`star-${i}`} />);
+    }
+    for (let i = 0; i < 5 - rate; i++) {
+      content.push(
+        <FaStar className="text-orange-300" key={`gray-star-${i}`} />
+      );
+    }
+    return content;
+  };
 
   const {
     data: car,
@@ -58,128 +73,135 @@ const CarDetails2 = () => {
   if (carError) return <div>Error loading car details.</div>;
 
   return (
-    <div className="bg-gray-100">
-      <div className="py-14 px-3">
-        <div className="lg:max-w-[1440px] md:max-w-[744px] max-w-[375px] mx-auto bg-white px-4 py-12">
-          <div className="lg:flex justify-center gap-8">
-            <div className="mt-9">
-              <div className="lg:max-w-[624px] w-full border border-gray-300">
-                <img
-                  src={
-                    car?.image ||
-                    "https://tuk-cdn.s3.amazonaws.com/can-uploader/00000800.png"
-                  }
-                  alt={car?.name || "Car Image"}
-                  className="mx-auto py-9"
-                />
+    <>
+      <Navbar />
+      <div className="bg-white">
+        <div className="py-0 px-3">
+          <div className="lg:max-w-[1440px] md:max-w-[744px] max-w-[375px] mx-auto bg-white px-4 py-12">
+            <div className="lg:flex justify-center gap-8">
+              <div className="mt-9">
+                <div className="lg:max-w-[624px] h-[600px] border border-gray-300">
+                  <img
+                    src={
+                      car?.image ||
+                      "https://tuk-cdn.s3.amazonaws.com/can-uploader/00000800.png"
+                    }
+                    alt={car?.name || "Car Image"}
+                    className="w-full h-full object-cover" // Ensures the image stretches to fill the container while maintaining aspect ratio
+                  />
+                </div>
               </div>
-            </div>
-            <div className="lg:py-5 md:py-6 py-4 lg:px-14 md:px-6 px-4 bg-gray-100 lg:mt-0 md:mt-8 mt-6">
-              <p className="text-2xl font-semibold leading-normal text-gray-800">
-                {car?.name || "Car Name"}
-              </p>
-              <p className="text-base leading-normal text-gray-600 lg:max-w-[512px] w-full mt-2">
-                {car?.description || "Car description goes here."}
-              </p>
-              <p className="text-2xl font-semibold leading-normal text-gray-800 mt-2">
-                ${car?.pricePerHour || "95.56"} per hour
-              </p>
-              <div className="mt-2">
-                <p className="text-base font-medium text-gray-800">
-                  Booking Date
+              <div className="lg:py-5 md:py-6 py-4 lg:px-14 md:px-6 px-4 bg-gray-100 lg:mt-0 md:mt-8 mt-6">
+                <p className="text-2xl font-semibold leading-normal text-gray-800">
+                  {car?.name || "Car Name"}
                 </p>
-                <div className="lg:max-w-[512px] w-full mt-2">
-                  <input
-                    type="date"
-                    value={date}
-                    onChange={handleDateChange}
-                    placeholder="Enter date"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-                  />
-                </div>
-              </div>
-              <div className="w-full gap-4 pt-2">
-                <div>
-                  <p className="text-base text-gray-800 mt-2 font-medium">
-                    Start Time
-                  </p>
-                </div>
-                <div className="lg:max-w-[512px] w-full mt-2">
-                  <input
-                    type="text"
-                    value={startTime}
-                    onChange={handleStartTimeChange}
-                    placeholder="Start Time (HH:MM)"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-                  />
-                </div>
-              </div>
-              <div className="mt-6">
-                <p className="text-base font-medium text-gray-800">
-                  Select Additional Features
+                <p className="text-2xl font-semibold leading-normal text-gray-800">
+                  <div className="flex gap-0.5">{getStarIcons(car?.rate)}</div>
+                </p>
+                <p className="text-base leading-normal text-gray-600 lg:max-w-[512px] w-full mt-2">
+                  {car?.description || "Car description goes here."}
+                </p>
+                <p className="text-2xl font-semibold leading-normal text-gray-800 mt-2">
+                  ${car?.pricePerHour || "95.56"} per hour
                 </p>
                 <div className="mt-2">
-                  <div className="flex items-center">
+                  <p className="text-base font-medium text-gray-800">
+                    Booking Date
+                  </p>
+                  <div className="lg:max-w-[512px] w-full mt-2">
                     <input
-                      type="checkbox"
-                      id="insurance"
-                      name="insurance"
-                      checked={selectedFeatures.insurance}
-                      onChange={handleFeatureChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      type="date"
+                      value={date}
+                      onChange={handleDateChange}
+                      placeholder="Enter date"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                     />
-                    <label
-                      htmlFor="insurance"
-                      className="ml-2 block text-sm text-gray-800"
-                    >
-                      Insurance (+$15)
-                    </label>
-                  </div>
-                  <div className="flex items-center mt-2">
-                    <input
-                      type="checkbox"
-                      id="gps"
-                      name="gps"
-                      checked={selectedFeatures.gps}
-                      onChange={handleFeatureChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    />
-                    <label
-                      htmlFor="gps"
-                      className="ml-2 block text-sm text-gray-800"
-                    >
-                      GPS (+$5)
-                    </label>
-                  </div>
-                  <div className="flex items-center mt-2">
-                    <input
-                      type="checkbox"
-                      id="childSeat"
-                      name="childSeat"
-                      checked={selectedFeatures.childSeat}
-                      onChange={handleFeatureChange}
-                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    />
-                    <label
-                      htmlFor="childSeat"
-                      className="ml-2 block text-sm text-gray-800"
-                    >
-                      Child Seat (+$7)
-                    </label>
                   </div>
                 </div>
+                <div className="w-full gap-4 pt-2">
+                  <div>
+                    <p className="text-base text-gray-800 mt-2 font-medium">
+                      Start Time
+                    </p>
+                  </div>
+                  <div className="lg:max-w-[512px] w-full mt-2">
+                    <input
+                      type="text"
+                      value={startTime}
+                      onChange={handleStartTimeChange}
+                      placeholder="Start Time (HH:MM)"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    />
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <p className="text-base font-medium text-gray-800">
+                    Select Additional Features
+                  </p>
+                  <div className="mt-2">
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id="insurance"
+                        name="insurance"
+                        checked={selectedFeatures.insurance}
+                        onChange={handleFeatureChange}
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      />
+                      <label
+                        htmlFor="insurance"
+                        className="ml-2 block text-sm text-gray-800"
+                      >
+                        Insurance (+$15)
+                      </label>
+                    </div>
+                    <div className="flex items-center mt-2">
+                      <input
+                        type="checkbox"
+                        id="gps"
+                        name="gps"
+                        checked={selectedFeatures.gps}
+                        onChange={handleFeatureChange}
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      />
+                      <label
+                        htmlFor="gps"
+                        className="ml-2 block text-sm text-gray-800"
+                      >
+                        GPS (+$5)
+                      </label>
+                    </div>
+                    <div className="flex items-center mt-2">
+                      <input
+                        type="checkbox"
+                        id="childSeat"
+                        name="childSeat"
+                        checked={selectedFeatures.childSeat}
+                        onChange={handleFeatureChange}
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      />
+                      <label
+                        htmlFor="childSeat"
+                        className="ml-2 block text-sm text-gray-800"
+                      >
+                        Child Seat (+$7)
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={handleBook}
+                  className="lg:max-w-[512px] w-full bg-orange-500 transition duration-300 hover:bg-orange-300 text-white mt-6 py-2"
+                >
+                  Book
+                </button>
               </div>
-              <button
-                onClick={handleBook}
-                className="lg:max-w-[512px] w-full bg-gray-800 transition duration-300 hover:bg-gray-700 text-white mt-6 py-2"
-              >
-                Book
-              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

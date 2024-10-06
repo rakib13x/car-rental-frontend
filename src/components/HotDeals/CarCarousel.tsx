@@ -14,7 +14,7 @@ export default function CarCarousel() {
   }
 
   if (isError) {
-    return <div>Error loading cars: {error.message}</div>;
+    return <div>Error loading cars</div>;
   }
 
   const cars = data?.data || [];
@@ -29,7 +29,29 @@ export default function CarCarousel() {
     slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
-      // ... your responsive settings
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 560,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
     ],
   };
 
@@ -47,7 +69,7 @@ export default function CarCarousel() {
                 />
                 <Link to={`/car-single/${car._id}`}>
                   <div className="absolute top-3 left-3 rounded-full py-1 px-4 uppercase text-xs text-white bg-orange-600">
-                    {car.label || "Special Offer"}
+                    {"Special Offer"}
                   </div>
                 </Link>
               </div>
@@ -56,7 +78,7 @@ export default function CarCarousel() {
                   <h3 className="text-sm">{car.name}</h3>
                 </Link>
                 <div className="flex-grow"></div>
-                <p className="text-xl">{car.pricePerHour}</p>
+                <p className="text-xl">${car.pricePerHour}</p>
               </div>
             </div>
           </div>

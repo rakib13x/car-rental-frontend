@@ -7,25 +7,25 @@ const data = [
   {
     name: "Shalini Menon",
     position: "Manager",
-    profile: "/team-1.jpg",
+    profile: "src/assets/images/team-1.webp",
     link: "https://google.com",
   },
   {
     name: "David John",
     position: "Sales",
-    profile: "/team-2.jpg",
+    profile: "src/assets/images/team-2.webp",
     link: "https://google.com",
   },
   {
     name: "Clifi Mathew",
     position: "Director",
-    profile: "/team-3.jpg",
+    profile: "src/assets/images/tema-3.webp",
     link: "https://google.com",
   },
   {
     name: "Twanda Costas",
     position: "Marketer",
-    profile: "/team-4.jpg",
+    profile: "src/assets/images/team-4.webp",
     link: "https://google.com",
   },
 ];

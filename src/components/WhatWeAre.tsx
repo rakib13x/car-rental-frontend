@@ -18,7 +18,7 @@ const WhatWeAre = () => {
       </p>
       <img
         className="mx-auto"
-        src="/car-about.jpg"
+        src="src/assets/images/what.webp"
         width={900}
         height={350}
         alt="About page"

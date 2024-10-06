@@ -17,6 +17,8 @@
     "@radix-ui/react-slider": "^1.2.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.7",
+    "@stripe/react-stripe-js": "^2.8.1",
+    "@stripe/stripe-js": "^4.8.0",
     "@tailwindcss/typography": "^0.5.14",
     "aos": "^2.3.4",
     "class-variance-authority": "^0.7.0",

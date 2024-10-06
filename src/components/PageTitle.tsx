@@ -4,7 +4,7 @@ interface Props {
 }
 
 export default function PageTitle(props: Props) {
-  const { title = "Page Title", image = "/page-title.jpg" } = props;
+  const { title = "Page Title", image = "src/assets/images/about.jpg" } = props;
 
   return (
     <div
