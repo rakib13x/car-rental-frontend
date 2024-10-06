@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import { useGetAllCarsQuery } from "../../redux/features/cars/carApi";
 
 export default function CarCarousel() {
-  const { data, isLoading, isError, error } = useGetAllCarsQuery({
+  const { data, isLoading, isError } = useGetAllCarsQuery({
     limit: 1000,
   });
 

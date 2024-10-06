@@ -57,13 +57,13 @@ const Testimonial = () => {
     slidesToScroll: 1,
     initialSlide: 1,
   };
-  const settingsMain = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    fade: true,
-    asNavFor: ".slider-nav",
-  };
+  // const settingsMain = {
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   arrows: false,
+  //   fade: true,
+  //   asNavFor: ".slider-nav",
+  // };
   const settingsThumbs = {
     slidesToShow: 3,
     slidesToScroll: 1,
