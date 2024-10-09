@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import Slider from "react-slick";
-
 import { LiaQuoteLeftSolid } from "react-icons/lia";
+import Slider from "react-slick";
 import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
+
+// Importing images
+import reviewer1 from "../../assets/images/reviewer-1.webp";
+import reviewer2 from "../../assets/images/reviewer-2.jpeg";
+import reviewer3 from "../../assets/images/reviewer-3.jpeg";
+import reviewer4 from "../../assets/images/reviewer-4.jpeg";
 
 const Testimonial = () => {
   const [nav1, setNav1] = useState();
@@ -21,49 +26,43 @@ const Testimonial = () => {
       position: "Sales",
       message:
         "Your service was the best I have taken in my experience, ever. Support staffs were quick and reliable with my issues and excited to work with you guys more. They will improve your website in 15 minutes. Hire the company and follow what they say and your business growth is going to jump like a skyrocket.",
-      image: "src/assets/images/reviewer-2.jpeg",
+      image: reviewer2, // Use imported image
     },
     {
       name: "Raymond Atkins",
       position: "Designer",
       message:
         "Your service was the best I have taken in my experience, ever. Support staffs were quick and reliable with my issues and excited to work with you guys more. They will improve your website in 15 minutes. Hire the company and follow what they say and your business growth is going to jump like a skyrocket.",
-      image: "src/assets/images/reviewer-1.webp",
+      image: reviewer1, // Use imported image
     },
     {
       name: "Katherine Moss",
       position: "Producor",
       message:
         "Your service was the best I have taken in my experience, ever. Support staffs were quick and reliable with my issues and excited to work with you guys more. They will improve your website in 15 minutes. Hire the company and follow what they say and your business growth is going to jump like a skyrocket.",
-      image: "src/assets/images/reviewer-3.jpeg",
+      image: reviewer3, // Use imported image
     },
     {
       name: "Jordan Mossiah",
       position: "Producor",
       message:
         "Your service was the best I have taken in my experience, ever. Support staffs were quick and reliable with my issues and excited to work with you guys more. They will improve your website in 15 minutes. Hire the company and follow what they say and your business growth is going to jump like a skyrocket.",
-      image: "src/assets/images/reviewer-4.jpeg",
+      image: reviewer4, // Use imported image
     },
   ];
-  var settings = {
+
+  const settings = {
     dots: false,
     arrows: false,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 5000,
-    // fade: true,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 1,
   };
-  // const settingsMain = {
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  //   arrows: false,
-  //   fade: true,
-  //   asNavFor: ".slider-nav",
-  // };
+
   const settingsThumbs = {
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -75,6 +74,7 @@ const Testimonial = () => {
     focusOnSelect: true,
     centerPadding: "0px",
   };
+
   return (
     <div className="bg-orange-500 py-8 lg:py-16 2xl:py-24">
       <div className="relative max-w-6xl mx-auto z-10">

@@ -16,7 +16,7 @@ export default function ServiceBar() {
               className="fill-cyan-500 stroke-cyan-500"
             />
             <h3 className="capitalize">
-              <Link to="/hot-deals" className="hover:text-gray-600">
+              <Link to="/" className="hover:text-gray-600">
                 Door step delivery
               </Link>
             </h3>
@@ -27,7 +27,7 @@ export default function ServiceBar() {
               className="fill-cyan-500 stroke-cyan-500"
             />
             <h3 className="capitalize">
-              <Link to="/hot-deals" className="hover:text-gray-600">
+              <Link to="/" className="hover:text-gray-600">
                 Best price guarantee
               </Link>
             </h3>
@@ -38,7 +38,7 @@ export default function ServiceBar() {
               className="fill-cyan-500 stroke-cyan-500"
             />
             <h3 className="capitalize">
-              <Link to="/hot-deals" className="hover:text-gray-600">
+              <Link to="/" className="hover:text-gray-600">
                 Go anywhere
               </Link>
             </h3>
@@ -49,7 +49,7 @@ export default function ServiceBar() {
               className="fill-cyan-500 stroke-cyan-500"
             />
             <h3 className="capitalize">
-              <Link to="/hot-deals" className="hover:text-gray-600">
+              <Link to="/" className="hover:text-gray-600">
                 No hidden charges
               </Link>
             </h3>
@@ -60,7 +60,7 @@ export default function ServiceBar() {
               className="fill-cyan-500 stroke-cyan-500"
             />
             <h3 className="capitalize">
-              <Link to="/hot-deals" className="hover:text-gray-600">
+              <Link to="/" className="hover:text-gray-600">
                 Damage insurance
               </Link>
             </h3>
