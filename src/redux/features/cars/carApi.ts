@@ -3,7 +3,9 @@ import { Car, TResponseRedux } from "../../../types/global";
 
 export const carApi = createApi({
   reducerPath: "carApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:4000/api/v1" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://assignment-5-ruby-pi.vercel.app/api/v1",
+  }),
   tagTypes: ["Cars"],
   endpoints: (builder) => ({
     getAllCars: builder.query<
