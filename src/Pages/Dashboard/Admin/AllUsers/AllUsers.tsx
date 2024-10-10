@@ -32,7 +32,8 @@ const AllUsers = () => {
                 <th className="font-normal text-left">Created</th>
                 <th className="font-normal text-left">Email</th>
                 <th className="font-normal text-left">Status</th>
-                <th className="font-normal text-left w-32">Actions</th>
+                <th className="font-normal text-center w-32">Actions</th>
+                <th className="font-normal text-center w-32">block</th>
               </tr>
             </thead>
             <tbody className="w-full">
@@ -68,18 +69,28 @@ const AllUsers = () => {
 
                   <td>
                     {user.status ? (
-                      <p className="mr-28">{user.status} </p>
+                      <p className="">{user.status} </p>
                     ) : (
                       "active"
                     )}
                   </td>
-                  <td>
+                  <td className="pl-16">
                     <div className="flex flex-col items-center justify-center gap-4">
                       <button className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
                         Make Admin
                       </button>
                       <button className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
                         Make User
+                      </button>
+                    </div>
+                  </td>
+                  <td className="pl-16">
+                    <div className="flex flex-col items-center justify-center gap-4">
+                      <button className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
+                        Block
+                      </button>
+                      <button className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
+                        Active
                       </button>
                     </div>
                   </td>

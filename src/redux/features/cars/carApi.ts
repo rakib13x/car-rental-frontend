@@ -39,16 +39,24 @@ export const carApi = createApi({
         return `cars?${params.toString()}`;
       },
       transformResponse: (response: TResponseRedux<Car[]>) => {
-        // Ensure we are correctly returning all relevant fields
-        console.log("API Response:", response); // Log response to inspect data
         return {
-          data: response.data || [], // Cars data
-          totalPages: response.totalPages ?? 1, // Ensure totalPages comes directly from the response
-          currentPage: response.currentPage ?? 1, // Current page from the response
-          totalItems: response.totalItems ?? 0, // Total items from the response
+          data: response.data || [],
+          totalPages: response.totalPages ?? 1,
+          currentPage: response.currentPage ?? 1,
+          totalItems: response.totalItems ?? 0,
         };
       },
     }),
+
+    createCar: builder.mutation<void, FormData>({
+      query: (newCar) => ({
+        url: `/cars`,
+        method: "POST",
+        body: newCar,
+      }),
+      invalidatesTags: ["Cars"],
+    }),
+
     getCarById: builder.query<Car, string>({
       query: (carId) => ({
         url: `/cars/${carId}`,
@@ -57,7 +65,19 @@ export const carApi = createApi({
       providesTags: ["Cars"],
       transformResponse: (response: TResponseRedux<Car>) => response.data,
     }),
+    deleteCar: builder.mutation<void, string>({
+      query: (carId) => ({
+        url: `/cars/${carId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Cars"], // Invalidates Cars tag to refresh the list
+    }),
   }),
 });
 
-export const { useGetAllCarsQuery, useGetCarByIdQuery } = carApi;
+export const {
+  useGetAllCarsQuery,
+  useCreateCarMutation,
+  useGetCarByIdQuery,
+  useDeleteCarMutation,
+} = carApi;

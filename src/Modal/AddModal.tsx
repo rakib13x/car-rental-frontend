@@ -1,52 +1,82 @@
-import React, { useState } from "react";
-
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/button";
+import { useCreateCarMutation } from "../redux/features/cars/carApi";
+import Swal from "sweetalert2"; // Import SweetAlert
+
 interface AddModalProps {
   showModal: boolean;
   toggleModal: () => void;
+  refetchCars: () => void;
 }
 
-const AddModal: React.FC<AddModalProps> = ({ showModal, toggleModal }) => {
-  if (!showModal) return null;
+const AddModal: React.FC<AddModalProps> = ({
+  showModal,
+  toggleModal,
+  refetchCars,
+}) => {
+  const { control, handleSubmit, reset } = useForm();
+  const [createCar, { isLoading }] = useCreateCarMutation();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    color: "",
-    isElectric: false,
-    features: "",
-    pricePerHour: "",
-    manufacturer: "",
-    vehicleType: "",
-    carImage: null,
-  });
+  const onSubmit = async (data: any) => {
+    const formData = new FormData();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked, files } = e.target;
-    if (type === "checkbox" || type === "radio") {
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: checked,
-      }));
-    } else if (type === "file") {
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: files ? files[0] : null,
-      }));
-    } else {
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
+    // Log raw data for debugging
+    console.log("Raw submitted data:", data);
+
+    // Append the image file
+    if (data.carImage && data.carImage[0]) {
+      formData.append("image", data.carImage[0]);
+    }
+
+    // Append other fields
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("color", data.color);
+    formData.append("isElectric", data.isElectric); // Send boolean directly
+    formData.append(
+      "features",
+      JSON.stringify(
+        data.features.split(",").map((feature: string) => feature.trim())
+      )
+    );
+    formData.append("pricePerHour", String(parseFloat(data.pricePerHour)));
+    formData.append("Manufacturers", data.Manufacturers);
+    formData.append("vehicleType", data.vehicleType);
+
+    try {
+      await createCar(formData).unwrap();
+      toggleModal();
+      reset();
+
+      // Refetch cars list after success
+      refetchCars();
+
+      // SweetAlert success
+      Swal.fire({
+        icon: "success",
+        title: "Car added!",
+        text: "The car was added successfully.",
+        showConfirmButton: true,
+        confirmButtonText: "OK",
+      });
+    } catch (error) {
+      console.error("Error creating car:", error);
+
+      // SweetAlert error
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong! Please try again.",
+        showConfirmButton: true,
+        confirmButtonText: "OK",
+      });
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(formData);
-    toggleModal();
-  };
+  if (!showModal) return null;
+
   return (
     <div
       className="py-12 bg-gray-700 bg-opacity-50 transition duration-150 ease-in-out z-10 fixed inset-0 overflow-auto"
@@ -83,112 +113,110 @@ const AddModal: React.FC<AddModalProps> = ({ showModal, toggleModal }) => {
             <h1 className="text-2xl font-bold text-center mb-6">Add Car</h1>
           </div>
 
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
             <div className="grid gap-4">
-              <Input
-                type="text"
+              {/* Car Name */}
+              <Controller
                 name="name"
-                placeholder="Car Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
+                control={control}
+                render={({ field }) => (
+                  <Input {...field} placeholder="Car Name" />
+                )}
               />
-              <Input
-                type="text"
+
+              {/* Description */}
+              <Controller
                 name="description"
-                placeholder="Description"
-                value={formData.description}
-                onChange={handleChange}
-                required
+                control={control}
+                render={({ field }) => (
+                  <Input {...field} placeholder="Description" />
+                )}
               />
-              <Input
-                type="text"
+
+              {/* Color */}
+              <Controller
                 name="color"
-                placeholder="Color"
-                value={formData.color}
-                onChange={handleChange}
-                required
+                control={control}
+                render={({ field }) => <Input {...field} placeholder="Color" />}
               />
-              {/* Radio Buttons for isElectric */}
+
+              {/* Is Electric */}
               <div className="flex items-center">
                 <label className="text-gray-800 text-sm font-bold mr-4">
                   Electric:
                 </label>
-                <label className="flex items-center mr-4">
-                  <input
-                    type="radio"
-                    name="isElectric"
-                    value="true"
-                    checked={formData.isElectric === true}
-                    onChange={() =>
-                      setFormData((prevState) => ({
-                        ...prevState,
-                        isElectric: true,
-                      }))
-                    }
-                    className="form-radio h-4 w-4 text-indigo-600"
-                  />
-                  <span className="ml-2 text-gray-700">Yes</span>
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="isElectric"
-                    value="false"
-                    checked={formData.isElectric === false}
-                    onChange={() =>
-                      setFormData((prevState) => ({
-                        ...prevState,
-                        isElectric: false,
-                      }))
-                    }
-                    className="form-radio h-4 w-4 text-indigo-600"
-                  />
-                  <span className="ml-2 text-gray-700">No</span>
-                </label>
+                <Controller
+                  name="isElectric"
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      type="checkbox"
+                      {...field}
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)}
+                    />
+                  )} // Boolean as boolean
+                />
               </div>
-              <Input
-                type="text"
+
+              {/* Features */}
+              <Controller
                 name="features"
-                placeholder="Features"
-                value={formData.features}
-                onChange={handleChange}
-                required
+                control={control}
+                render={({ field }) => (
+                  <Input {...field} placeholder="Features (comma separated)" />
+                )}
               />
-              <Input
-                type="number"
+
+              {/* Price Per Hour */}
+              <Controller
                 name="pricePerHour"
-                placeholder="Price Per Hour"
-                value={formData.pricePerHour}
-                onChange={handleChange}
-                required
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="number"
+                    placeholder="Price Per Hour"
+                  />
+                )}
               />
-              <Input
-                type="text"
-                name="manufacturer"
-                placeholder="Manufacturer"
-                value={formData.manufacturer}
-                onChange={handleChange}
-                required
+
+              {/* Manufacturer */}
+              <Controller
+                name="Manufacturers"
+                control={control}
+                render={({ field }) => (
+                  <Input {...field} placeholder="Manufacturers" />
+                )}
               />
-              <Input
-                type="text"
+
+              {/* Vehicle Type */}
+              <Controller
                 name="vehicleType"
-                placeholder="Vehicle Type"
-                value={formData.vehicleType}
-                onChange={handleChange}
-                required
+                control={control}
+                render={({ field }) => (
+                  <Input {...field} placeholder="Vehicle Type" />
+                )}
               />
-              {/* Input for Car Image */}
-              <Input
-                type="file"
+
+              {/* Car Image */}
+              <Controller
                 name="carImage"
-                accept="image/*"
-                onChange={handleChange}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => field.onChange(e.target.files)}
+                  />
+                )}
               />
+
               {/* Action Buttons */}
               <div className="flex items-center justify-start w-full mt-4">
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isLoading}>
+                  Submit
+                </Button>
                 <button
                   type="button"
                   className="focus:outline-none ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:bg-gray-200 border rounded px-8 py-2 text-sm"
