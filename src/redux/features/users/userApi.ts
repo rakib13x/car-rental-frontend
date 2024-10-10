@@ -1,4 +1,3 @@
-// userApi.ts
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { TResponseRedux } from "../../../types/global"; // Assuming you have these types
 import { User } from "../../../types/User";
@@ -34,12 +33,56 @@ export const userApi = createApi({
         };
       },
     }),
+
     getUserById: builder.query<User, string>({
       query: (userId) => `users/${userId}`,
       providesTags: ["Users"],
       transformResponse: (response: TResponseRedux<User>) => response.data,
     }),
+
+    // Update user to admin
+    makeAdmin: builder.mutation<void, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `users/${userId}/make-admin`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Users"],
+    }),
+
+    // Update user to normal user
+    makeUser: builder.mutation<void, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `users/${userId}/make-user`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Users"],
+    }),
+
+    // Block a user
+    blockUser: builder.mutation<void, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `users/${userId}/block`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Users"],
+    }),
+
+    // Activate a user
+    activateUser: builder.mutation<void, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `users/${userId}/activate`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Users"],
+    }),
   }),
 });
 
-export const { useGetAllUsersQuery, useGetUserByIdQuery } = userApi;
+export const {
+  useGetAllUsersQuery,
+  useGetUserByIdQuery,
+  useMakeAdminMutation,
+  useMakeUserMutation,
+  useBlockUserMutation,
+  useActivateUserMutation,
+} = userApi;

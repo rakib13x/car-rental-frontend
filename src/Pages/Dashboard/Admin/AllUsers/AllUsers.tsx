@@ -1,16 +1,105 @@
 import { useState } from "react";
-import { useGetAllUsersQuery } from "../../../../redux/features/users/userApi";
+import Swal from "sweetalert2";
+import {
+  useActivateUserMutation,
+  useBlockUserMutation,
+  useGetAllUsersQuery,
+  useMakeAdminMutation,
+  useMakeUserMutation,
+} from "../../../../redux/features/users/userApi";
 
 const AllUsers = () => {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetAllUsersQuery({ page, limit: 10 });
   console.log(data);
 
+  // Mutations for role and status updates
+  const [makeAdmin] = useMakeAdminMutation();
+  const [makeUser] = useMakeUserMutation();
+  const [blockUser] = useBlockUserMutation();
+  const [activateUser] = useActivateUserMutation();
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error fetching users</div>;
 
   const users = data?.data?.data ?? [];
   console.log(users);
+
+  // Handle role change to admin
+  const handleMakeAdmin = async (userId: string) => {
+    try {
+      await makeAdmin({ userId }).unwrap();
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "User role updated to Admin.",
+      });
+    } catch (error) {
+      console.error("Error making admin:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error making user admin. Please try again.",
+      });
+    }
+  };
+
+  // Handle role change to user
+  const handleMakeUser = async (userId: string) => {
+    try {
+      await makeUser({ userId }).unwrap();
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "User role updated to User.",
+      });
+    } catch (error) {
+      console.error("Error making user:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error making user. Please try again.",
+      });
+    }
+  };
+
+  // Handle user block
+  const handleBlockUser = async (userId: string) => {
+    try {
+      await blockUser({ userId }).unwrap();
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "User has been blocked.",
+      });
+    } catch (error) {
+      console.error("Error blocking user:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error blocking user. Please try again.",
+      });
+    }
+  };
+
+  // Handle user activation
+  const handleActivateUser = async (userId: string) => {
+    try {
+      await activateUser({ userId }).unwrap();
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "User has been activated.",
+      });
+    } catch (error) {
+      console.error("Error activating user:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Error activating user. Please try again.",
+      });
+    }
+  };
 
   return (
     <div>
@@ -33,7 +122,7 @@ const AllUsers = () => {
                 <th className="font-normal text-left">Email</th>
                 <th className="font-normal text-left">Status</th>
                 <th className="font-normal text-center w-32">Actions</th>
-                <th className="font-normal text-center w-32">block</th>
+                <th className="font-normal text-center w-32">Account Action</th>
               </tr>
             </thead>
             <tbody className="w-full">
@@ -68,29 +157,37 @@ const AllUsers = () => {
                   </td>
 
                   <td>
-                    {user.status ? (
-                      <p className="">{user.status} </p>
-                    ) : (
-                      "active"
-                    )}
+                    <p className="">{user.status}</p>
                   </td>
                   <td className="pl-16">
                     <div className="flex flex-col items-center justify-center gap-4">
-                      <button className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
+                      <button
+                        className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
+                        onClick={() => handleMakeAdmin(user._id)}
+                      >
                         Make Admin
                       </button>
-                      <button className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
+                      <button
+                        className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
+                        onClick={() => handleMakeUser(user._id)}
+                      >
                         Make User
                       </button>
                     </div>
                   </td>
                   <td className="pl-16">
                     <div className="flex flex-col items-center justify-center gap-4">
-                      <button className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
+                      <button
+                        className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
+                        onClick={() => handleBlockUser(user._id)}
+                      >
                         Block
                       </button>
-                      <button className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none">
-                        Active
+                      <button
+                        className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
+                        onClick={() => handleActivateUser(user._id)}
+                      >
+                        Activate
                       </button>
                     </div>
                   </td>
