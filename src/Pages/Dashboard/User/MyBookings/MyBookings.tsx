@@ -33,12 +33,34 @@ const MyBookings = () => {
     }
   }, [fetchedBookings]);
 
+  // Loading state
   if (isLoading) return <p>Loading your bookings...</p>;
-  if (error)
-    return <p>Failed to fetch your bookings. Please try again later.</p>;
 
+  // Handle 404 error with a custom message for no bookings
+  if (
+    error &&
+    (error as any)?.status === 404 &&
+    (error as any)?.data?.message === "No Data Found"
+  ) {
+    return (
+      <div className="text-center py-10">
+        <p className="text-gray-600 text-lg">You haven't booked any car yet.</p>
+      </div>
+    );
+  }
+
+  // Handle other errors
+  if (error) {
+    return <p>Failed to fetch your bookings. Please try again later.</p>;
+  }
+
+  // Handle no bookings
   if (!bookings || bookings.length === 0) {
-    return <p>You have no bookings.</p>;
+    return (
+      <div className="text-center py-10">
+        <p className="text-gray-600 text-lg">You haven't booked any car yet.</p>
+      </div>
+    );
   }
 
   const handleCancelBooking = async (bookingId: string) => {
@@ -86,6 +108,19 @@ const MyBookings = () => {
         booking._id === bookingId ? { ...booking, payStatus: "paid" } : booking
       )
     );
+  };
+
+  const getStatusClasses = (status: string) => {
+    switch (status) {
+      case "approved":
+        return "bg-green-100 text-green-700";
+      case "cancelled":
+        return "bg-red-100 text-red-700";
+      case "pending":
+        return "bg-yellow-100 text-yellow-700";
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
   };
 
   return (
@@ -136,7 +171,13 @@ const MyBookings = () => {
                     <p className="mr-16">${booking.totalCost}</p>
                   </td>
                   <td>
-                    <p className="mr-16">{booking.status}</p>
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusClasses(
+                        booking.status
+                      )}`}
+                    >
+                      {booking.status}
+                    </span>
                   </td>
                   <td>
                     <div className="flex flex-col items-center justify-center gap-4">

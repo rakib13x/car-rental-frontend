@@ -89,7 +89,7 @@ import { RootState } from "../store";
 
 // Define the base fetch query
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://assignment-5-ruby-pi.vercel.app/api/v1",
+  baseUrl: "http://localhost:4000/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;

@@ -30,7 +30,7 @@ const TopBar = () => {
       </div>
       <div className="flex-none gap-2">
         <div className="form-control">
-          <Link to="/faq">
+          <Link to="/">
             <p className="mr-2 text-lg font-semibold hover:text-orange-500 cursor-pointer">
               Faq
             </p>
@@ -55,7 +55,7 @@ const TopBar = () => {
                 <li>
                   <a className="justify-between">{user?.name}</a>
                 </li>
-                <Link to="/dashboard">
+                <Link to="/dashboard/myProfile">
                   <li>
                     <a>Dashboard</a>
                   </li>

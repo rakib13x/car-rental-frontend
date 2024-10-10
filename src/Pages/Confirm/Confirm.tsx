@@ -81,7 +81,7 @@ const Confirm = () => {
         confirmButtonText: "OK",
       });
 
-      navigate("/bookings/my-bookings");
+      navigate("/");
     } catch (error) {
       // Handle error scenarios
       Swal.fire({

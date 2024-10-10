@@ -1,8 +1,20 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import UpdateProfileModal from "../../Modal/UpdateProfileModal";
 import { selectCurrentUser } from "../../redux/features/authSlice";
 import { useAppSelector } from "../../redux/hooks";
 
 const MyProfile = () => {
   const user = useAppSelector(selectCurrentUser);
+  const [updateShowModal, setUpdateShowModal] = useState(false); // State to control modal visibility
+
+  const updateToggleModal = () => {
+    setUpdateShowModal(!updateShowModal);
+  };
+
+  useEffect(() => {
+    console.log("Current user in Redux:", user);
+  }, [user]);
 
   return (
     <>
@@ -92,6 +104,17 @@ const MyProfile = () => {
                   </dl>
                 </div>
               </div>
+              <div className="flex items-center justify-center">
+                <button
+                  className="bg-black text-white py-3 rounded-xl w-1/2"
+                  onClick={updateToggleModal} // Toggle modal on click
+                  disabled={user?.role === "admin"} // Disable button if user is an admin
+                >
+                  {user?.role === "admin"
+                    ? "Admin cannot update profile"
+                    : "Update Profile"}
+                </button>
+              </div>
             </div>
 
             <div className="my-10 lg:w-[70%] md:h-[14rem] xs:w-full xs:h-[10rem]">
@@ -109,7 +132,7 @@ const MyProfile = () => {
 
             {/* Social Media Icons */}
             <div className="fixed right-2 bottom-20 flex flex-col rounded-sm bg-gray-200 text-gray-500 dark:bg-gray-200/80 dark:text-gray-700 hover:text-gray-600 hover:dark:text-gray-400">
-              <a href="https://www.linkedin.com/in/">
+              <Link to="https://www.linkedin.com/in/">
                 <div className="p-2 hover:text-primary hover:dark:text-primary">
                   <svg
                     className="lg:w-6 lg:h-6 xs:w-4 xs:h-4 text-blue-500"
@@ -128,11 +151,27 @@ const MyProfile = () => {
                     <path d="M7.2 8.809H4V19.5h3.2V8.809Z" />
                   </svg>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Update Profile Modal */}
+      {user && user.role !== "admin" && (
+        <UpdateProfileModal
+          updateShowModal={updateShowModal}
+          updateToggleModal={updateToggleModal}
+          user={{
+            id: user._id || "",
+            name: user.name || "",
+            email: user.email || "",
+            phone: user.phone || "",
+            address: user.address || "",
+            profilePhoto: user.profilePhoto || "",
+          }}
+        />
+      )}
     </>
   );
 };

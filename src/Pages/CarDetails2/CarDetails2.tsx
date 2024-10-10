@@ -8,6 +8,7 @@ import Navbar from "../../Shared/Navbar/Navbar";
 const CarDetails2 = () => {
   const { carId } = useParams();
   const navigate = useNavigate();
+
   const getStarIcons = (rate: number = 0) => {
     const content = [];
     for (let i = 0; i < rate; i++) {
@@ -69,6 +70,15 @@ const CarDetails2 = () => {
     navigate("/checkout", { state: bookingData });
   };
 
+  // Magnifier settings
+  const magnifierHeight = 150;
+  const magnifierWidth = 150;
+  const zoomLevel = 2;
+  const [imgWidth, setImgWidth] = useState(0);
+  const [imgHeight, setImgHeight] = useState(0);
+  const [showMagnifier, setShowMagnifier] = useState(false);
+  const [[x, y], setXY] = useState([0, 0]);
+
   if (carLoading) return <div>Loading...</div>;
   if (carError) return <div>Error loading car details.</div>;
 
@@ -80,15 +90,59 @@ const CarDetails2 = () => {
           <div className="lg:max-w-[1440px] md:max-w-[744px] max-w-[375px] mx-auto bg-white px-4 py-12">
             <div className="lg:flex justify-center gap-8">
               <div className="mt-9">
-                <div className="lg:max-w-[624px] h-[600px] border border-gray-300">
+                {/* Magnifier Image Section */}
+                <div className="relative lg:max-w-[624px] h-[600px] border border-gray-300">
                   <img
                     src={
                       car?.image ||
                       "https://tuk-cdn.s3.amazonaws.com/can-uploader/00000800.png"
                     }
                     alt={car?.name || "Car Image"}
-                    className="w-full h-full object-cover" // Ensures the image stretches to fill the container while maintaining aspect ratio
+                    className="w-full h-full object-cover"
+                    onMouseEnter={(e) => {
+                      const elem = e.currentTarget;
+                      const { width, height } = elem.getBoundingClientRect();
+                      setImgWidth(width);
+                      setImgHeight(height);
+                      setShowMagnifier(true);
+                    }}
+                    onMouseMove={(e) => {
+                      const elem = e.currentTarget;
+                      const { top, left } = elem.getBoundingClientRect();
+                      const x = e.pageX - left - window.pageXOffset;
+                      const y = e.pageY - top - window.pageYOffset;
+                      setXY([x, y]);
+                    }}
+                    onMouseLeave={() => {
+                      setShowMagnifier(false);
+                    }}
                   />
+
+                  {/* Magnifier */}
+                  {showMagnifier && (
+                    <div
+                      className="absolute pointer-events-none border border-gray-200 bg-white rounded-full"
+                      style={{
+                        height: `${magnifierHeight}px`,
+                        width: `${magnifierWidth}px`,
+                        top: `${y - magnifierHeight / 2}px`,
+                        left: `${x - magnifierWidth / 2}px`,
+                        backgroundImage: `url(${
+                          car?.image ||
+                          "https://tuk-cdn.s3.amazonaws.com/can-uploader/00000800.png"
+                        })`,
+                        backgroundSize: `${imgWidth * zoomLevel}px ${
+                          imgHeight * zoomLevel
+                        }px`,
+                        backgroundPositionX: `${
+                          -x * zoomLevel + magnifierWidth / 2
+                        }px`,
+                        backgroundPositionY: `${
+                          -y * zoomLevel + magnifierHeight / 2
+                        }px`,
+                      }}
+                    />
+                  )}
                 </div>
               </div>
               <div className="lg:py-5 md:py-6 py-4 lg:px-14 md:px-6 px-4 bg-gray-100 lg:mt-0 md:mt-8 mt-6">

@@ -20,6 +20,7 @@ import MyProfile from "../Pages/MyProfile/MyProfile";
 import SignIn from "../Pages/SignIn/SignIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import AdminRoute from "./AdminRoute";
+import GuestRoute from "./GuestRoute";
 import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
@@ -34,11 +35,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <SignIn />,
+        element: (
+          <GuestRoute>
+            <SignIn />
+          </GuestRoute>
+        ),
       },
       {
         path: "signup",
-        element: <SignUp />,
+        element: (
+          <GuestRoute>
+            <SignUp />
+          </GuestRoute>
+        ),
       },
       {
         path: "about",
@@ -129,11 +138,19 @@ export const router = createBrowserRouter([
       // },
       {
         path: "userbookings",
-        element: <UserBookings />,
+        element: (
+          <AdminRoute>
+            <UserBookings />
+          </AdminRoute>
+        ),
       },
       {
         path: "myProfile",
-        element: <MyProfile />,
+        element: (
+          <ProtectedRoute>
+            <MyProfile />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

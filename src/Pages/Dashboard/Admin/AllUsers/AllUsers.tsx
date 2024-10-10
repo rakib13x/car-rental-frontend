@@ -12,9 +12,7 @@ import {
 const AllUsers = () => {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetAllUsersQuery({ page, limit: 10 });
-  console.log(data);
 
-  // Mutations for role and status updates
   const [makeAdmin] = useMakeAdminMutation();
   const [makeUser] = useMakeUserMutation();
   const [blockUser] = useBlockUserMutation();
@@ -23,82 +21,43 @@ const AllUsers = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error fetching users</div>;
 
-  const users = data?.data?.data ?? [];
-  console.log(users);
+  const users = data?.data ?? [];
+  console.log("Users:", users);
 
   // Handle role change to admin
   const handleMakeAdmin = async (userId: string) => {
     try {
       await makeAdmin({ userId }).unwrap();
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "User role updated to Admin.",
-      });
+      Swal.fire("Success", "User role updated to Admin.", "success");
     } catch (error) {
-      console.error("Error making admin:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Error making user admin. Please try again.",
-      });
+      Swal.fire("Error", "Error making user admin. Please try again.", "error");
     }
   };
 
-  // Handle role change to user
   const handleMakeUser = async (userId: string) => {
     try {
       await makeUser({ userId }).unwrap();
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "User role updated to User.",
-      });
+      Swal.fire("Success", "User role updated to User.", "success");
     } catch (error) {
-      console.error("Error making user:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Error making user. Please try again.",
-      });
+      Swal.fire("Error", "Error making user. Please try again.", "error");
     }
   };
 
-  // Handle user block
   const handleBlockUser = async (userId: string) => {
     try {
       await blockUser({ userId }).unwrap();
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "User has been blocked.",
-      });
+      Swal.fire("Success", "User has been blocked.", "success");
     } catch (error) {
-      console.error("Error blocking user:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Error blocking user. Please try again.",
-      });
+      Swal.fire("Error", "Error blocking user. Please try again.", "error");
     }
   };
 
-  // Handle user activation
   const handleActivateUser = async (userId: string) => {
     try {
       await activateUser({ userId }).unwrap();
-      Swal.fire({
-        icon: "success",
-        title: "Success",
-        text: "User has been activated.",
-      });
+      Swal.fire("Success", "User has been activated.", "success");
     } catch (error) {
-      console.error("Error activating user:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Error activating user. Please try again.",
-      });
+      Swal.fire("Error", "Error activating user. Please try again.", "error");
     }
   };
 
@@ -127,73 +86,89 @@ const AllUsers = () => {
               </tr>
             </thead>
             <tbody className="w-full">
-              {users.map((user, index) => (
-                <tr
-                  key={user._id}
-                  className="h-20 text-sm leading-none text-gray-700 border-b border-t border-gray-200 bg-white hover:bg-gray-100"
-                >
-                  <td className="pl-4">{index + 1}</td>
-                  <td className="pl-11">
-                    <div className="flex items-center">
-                      <img
-                        className="shadow-md rounded-full w-10 h-10 mr-3"
-                        src={
-                          user.profilePhoto || "https://via.placeholder.com/150"
-                        }
-                        alt={user.name}
-                      />
-                      {user.name}
-                    </div>
-                  </td>
-                  <td>
-                    <p className="mr-16 pl-10">{user.role}</p>
-                  </td>
-                  <td>
-                    <p className="mr-16">
-                      {new Date(user.createdAt).toLocaleDateString()}
-                    </p>
-                  </td>
-                  <td>
-                    <p className="mr-12">{user.email}</p>
-                  </td>
+              {users.length > 0 ? (
+                users.map((user, index) => (
+                  <tr
+                    key={user._id}
+                    className="h-20 text-sm leading-none text-gray-700 border-b border-t border-gray-200 bg-white hover:bg-gray-100"
+                  >
+                    <td className="pl-4">{index + 1}</td>
+                    <td className="pl-11">
+                      <div className="flex items-center">
+                        <img
+                          className="shadow-md rounded-full w-10 h-10 mr-3"
+                          src={
+                            user.profilePhoto ||
+                            "https://via.placeholder.com/150"
+                          }
+                          alt={user.name}
+                        />
+                        {user.name}
+                      </div>
+                    </td>
+                    <td>
+                      <p className="mr-16 pl-10">{user.role}</p>
+                    </td>
+                    <td>
+                      <p className="mr-16">
+                        {new Date(user.createdAt).toLocaleDateString()}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="mr-12">{user.email}</p>
+                    </td>
+                    <td>
+                      <p className="">{user.status}</p>
+                    </td>
 
-                  <td>
-                    <p className="">{user.status}</p>
-                  </td>
-                  <td className="pl-16">
-                    <div className="flex flex-col items-center justify-center gap-4">
-                      <button
-                        className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
-                        onClick={() => handleMakeAdmin(user._id)}
-                      >
-                        Make Admin
-                      </button>
-                      <button
-                        className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
-                        onClick={() => handleMakeUser(user._id)}
-                      >
-                        Make User
-                      </button>
-                    </div>
-                  </td>
-                  <td className="pl-16">
-                    <div className="flex flex-col items-center justify-center gap-4">
-                      <button
-                        className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
-                        onClick={() => handleBlockUser(user._id)}
-                      >
-                        Block
-                      </button>
-                      <button
-                        className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
-                        onClick={() => handleActivateUser(user._id)}
-                      >
-                        Activate
-                      </button>
-                    </div>
+                    {/* Role Change Actions */}
+                    <td className="pl-16">
+                      <div className="flex flex-col items-center justify-center gap-4">
+                        <button
+                          className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
+                          onClick={() => handleMakeAdmin(user._id)}
+                          disabled={user.role === "admin"}
+                        >
+                          Make Admin
+                        </button>
+                        <button
+                          className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
+                          onClick={() => handleMakeUser(user._id)}
+                          disabled={user.role === "user"}
+                        >
+                          Make User
+                        </button>
+                      </div>
+                    </td>
+
+                    {/* Account Status Actions */}
+                    <td className="pl-16">
+                      <div className="flex flex-col items-center justify-center gap-4">
+                        <button
+                          className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
+                          onClick={() => handleBlockUser(user._id)}
+                          disabled={user.status === "blocked"}
+                        >
+                          Block
+                        </button>
+                        <button
+                          className="bg-gray-100 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
+                          onClick={() => handleActivateUser(user._id)}
+                          disabled={user.status === "active"}
+                        >
+                          Activate
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={8} className="text-center py-4">
+                    No users found.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
