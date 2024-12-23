@@ -15,10 +15,10 @@
 </p>
 
 - Feature 1: I have used role based jwt authentication for securing user data and admin data.
-- Feature 2: Here User can create,delete and edit their post.
-- Feature 3: User have to pay to see premium post.
-- Feature 4: User can comment and give their reaction to a post.
-- Feature 5: On admin dashboard ,admin can see all of User data and their account status.
+- Feature 2: Here User can book a car by their preferable choice.
+- Feature 3: Admin can calcute user total booking bill by user return time .
+- Feature 4: User can pay through credit or debit card.
+- Feature 5: On admin dashboard ,admin can see all of User data and and all of the cars data and their status.
 
 ---
 <p align="center">
@@ -48,13 +48,9 @@
   <a href="https://redux.js.org" target="_blank" rel="noreferrer" style="margin-right: 20px;">
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" alt="redux" width="40" height="40"/> 
   </a> 
-   <a href="https://tanstack.com/query/latest" target="_blank" rel="noreferrer" style="margin-right: 20px;">
-    <img src="https://i.ibb.co.com/frtb66N/react-query-logo-png-seeklogo-435661.png" alt="react-query" width="40" height="40"/> 
-  </a> 
+ 
   <a href="https://react-hook-form.com/" target="_blank" rel="noreferrer" style="margin-right: 20px;">
     <img src="https://i.ibb.co.com/nfm9zSv/53986236.png" alt="react-hook-form" width="40" height="40"/> 
   </a>
-    <a href="https://nextjs.org/" target="_blank" rel="noreferrer" style="margin-right: 20px;">
-    <img src="https://i.ibb.co.com/VQmNdBc/images.jpg" alt="nextjs" width="40" height="40"/> 
-  </a>
+ 
 </p>
