@@ -6,7 +6,7 @@
 ---
 
 <p align="center">
-  <a href="https://assignmen-5-client.vercel.app/" style="font-size: 24px; text-align: center;">Car Rental</a>
+  <a href="https://tech-tunes.vercel.app/" style="font-size: 24px; text-align: center;">Tech blog</a>
 </p>
 
 
@@ -15,10 +15,10 @@
 </p>
 
 - Feature 1: I have used role based jwt authentication for securing user data and admin data.
-- Feature 2: Here User can book a car by their preferable location.
-- Feature 3: User can Pay here through credit card for their items.
-- Feature 4: User can review a car based on their experience.
-- Feature 5: On admin dashboard ,if admin approve their booking then user can get and use their booked car.
+- Feature 2: Here User can create,delete and edit their post.
+- Feature 3: User have to pay to see premium post.
+- Feature 4: User can comment and give their reaction to a post.
+- Feature 5: On admin dashboard ,admin can see all of User data and their account status.
 
 ---
 <p align="center">
