@@ -25,15 +25,11 @@
   <strong>Technologies that I have used for building this Project:</strong>
 </p>
 <p align="center">
-  <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/>
-  </a>
+  
   <a href="https://vercel.com/" target="_blank" rel="noreferrer" style="margin-right: 20px;">
     <img src="https://i.ibb.co.com/Msf0h56/f89f5a6bd3107234fb0b76f8f2aeb812.jpg" alt="vercel" width="40" height="40"/> 
   </a>
-  <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/>
-  </a>
+  
   <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/>
   </a>
@@ -52,4 +48,13 @@
   <a href="https://redux.js.org" target="_blank" rel="noreferrer" style="margin-right: 20px;">
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" alt="redux" width="40" height="40"/> 
   </a> 
+   <a href="https://tanstack.com/query/latest" target="_blank" rel="noreferrer" style="margin-right: 20px;">
+    <img src="https://i.ibb.co.com/frtb66N/react-query-logo-png-seeklogo-435661.png" alt="react-query" width="40" height="40"/> 
+  </a> 
+  <a href="https://react-hook-form.com/" target="_blank" rel="noreferrer" style="margin-right: 20px;">
+    <img src="https://i.ibb.co.com/nfm9zSv/53986236.png" alt="react-hook-form" width="40" height="40"/> 
+  </a>
+    <a href="https://nextjs.org/" target="_blank" rel="noreferrer" style="margin-right: 20px;">
+    <img src="https://i.ibb.co.com/VQmNdBc/images.jpg" alt="nextjs" width="40" height="40"/> 
+  </a>
 </p>
