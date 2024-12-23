@@ -6,7 +6,7 @@
 ---
 
 <p align="center">
-  <a href="https://tech-tunes.vercel.app/" style="font-size: 24px; text-align: center;">Tech blog</a>
+  <a href="https://assignmen-5-client.vercel.app/" style="font-size: 24px; text-align: center;">Car rental</a>
 </p>
 
 
