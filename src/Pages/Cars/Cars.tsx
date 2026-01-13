@@ -9,6 +9,7 @@ import { useGetAllCarsQuery } from "../../redux/features/cars/carApi";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 import SectionWrapper from "../../Shared/SectionWrapper/SectionWrapper";
+import MapboxRouting from "../../components/MapboxRouting/MapboxRouting";
 import { Car } from "../../types/global";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 
@@ -74,6 +75,9 @@ export default function Cars() {
             />
           </div>
         </div>
+      </SectionWrapper>
+      <SectionWrapper>
+        <MapboxRouting />
       </SectionWrapper>
       <Footer />
     </>

@@ -1,12 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Car, TResponseRedux } from "../../../types/global";
+import { baseApi } from "../../api/baseApi";
 
-export const carApi = createApi({
-  reducerPath: "carApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://assignment-5-ruby-pi.vercel.app/api/v1",
-  }),
-  tagTypes: ["Cars"],
+export const carApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllCars: builder.query<
       {
@@ -38,7 +33,10 @@ export const carApi = createApi({
         params.append("page", page.toString());
         params.append("limit", limit.toString());
 
-        return `cars?${params.toString()}`;
+        return {
+          url: `cars?${params.toString()}`,
+          method: "GET",
+        };
       },
       transformResponse: (response: TResponseRedux<Car[]>) => {
         return {
@@ -48,6 +46,7 @@ export const carApi = createApi({
           totalItems: response.totalItems ?? 0,
         };
       },
+      providesTags: ["Cars"],
     }),
 
     createCar: builder.mutation<void, FormData>({
@@ -64,17 +63,30 @@ export const carApi = createApi({
         url: `/cars/${carId}`,
         method: "GET",
       }),
-      providesTags: ["Cars"],
       transformResponse: (response: TResponseRedux<Car>) => response.data,
+      providesTags: ["Cars"],
     }),
+
     deleteCar: builder.mutation<void, string>({
       query: (carId) => ({
         url: `/cars/${carId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Cars"], // Invalidates Cars tag to refresh the list
+      invalidatesTags: ["Cars"],
+    }),
+    updateCar: builder.mutation<
+      void,
+      { carId: string; body: FormData | Record<string, any> }
+    >({
+      query: ({ carId, body }) => ({
+        url: `/cars/${carId}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Cars"],
     }),
   }),
+  overrideExisting: false,
 });
 
 export const {
@@ -82,4 +94,5 @@ export const {
   useCreateCarMutation,
   useGetCarByIdQuery,
   useDeleteCarMutation,
+  useUpdateCarMutation,
 } = carApi;

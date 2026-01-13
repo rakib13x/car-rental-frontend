@@ -11,6 +11,7 @@ import {
 const AllCars = () => {
   const [showModal, setShowModal] = useState(false);
   const [updateShowModal, setUpdateShowModal] = useState(false);
+  const [selectedCar, setSelectedCar] = useState<any>(null);
   const [page, setPage] = useState(1);
 
   const {
@@ -146,15 +147,20 @@ const AllCars = () => {
                   </td>
                   <td>
                     <div className="flex items-center">
-                      {updateShowModal && (
+                      {updateShowModal && selectedCar && (
                         <UpdateModal
                           updateShowModal={updateShowModal}
                           updateToggleModal={updateToggleModal}
+                          car={selectedCar}
+                          refetchCars={refetch}
                         />
                       )}
                       <button
                         className="bg-gray-100 mr-3 hover:bg-gray-200 py-2.5 px-5 rounded text-sm leading-3 text-gray-500 focus:outline-none"
-                        onClick={updateToggleModal}
+                        onClick={() => {
+                          setSelectedCar(car);
+                          updateToggleModal();
+                        }}
                       >
                         Update
                       </button>

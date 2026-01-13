@@ -13,7 +13,7 @@ interface GetAllUsersResponse {
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://assignment-5-ruby-pi.vercel.app/api/v1",
+    baseUrl: "http://localhost:3000/api/v1",
   }),
   tagTypes: ["Users"],
   endpoints: (builder) => ({

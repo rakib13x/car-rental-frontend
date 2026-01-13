@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Input } from "../components/ui/Input";
 import { Button } from "../components/ui/button";
+import { useUpdateCarMutation } from "../redux/features/cars/carApi";
+import Swal from "sweetalert2";
+
 interface UpdateModalProps {
   updateShowModal: boolean;
   updateToggleModal: () => void;
+  car: any;
+  refetchCars: () => void;
 }
 
 const UpdateModal: React.FC<UpdateModalProps> = ({
   updateShowModal,
   updateToggleModal,
+  car,
+  refetchCars,
 }) => {
-  if (!updateShowModal) return null;
+  if (!updateShowModal || !car) return null;
 
-  const [formData, setFormData] = useState({
+  const [updateCar] = useUpdateCarMutation();
+
+  const [formData, setFormData] = useState<any>({
     name: "",
     description: "",
     color: "",
@@ -25,31 +34,129 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
     carImage: null,
   });
 
+  useEffect(() => {
+    setFormData({
+      name: car.name || "",
+      description: car.description || "",
+      color: car.color || "",
+      isElectric: !!car.isElectric,
+      features: Array.isArray(car.features)
+        ? car.features.join(", ")
+        : car.features || "",
+      pricePerHour: car.pricePerHour?.toString() || "",
+      manufacturer: car.Manufacturers || "",
+      vehicleType: car.vehicleType || "",
+      carImage: null,
+    });
+  }, [car]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked, files } = e.target;
     if (type === "checkbox" || type === "radio") {
-      setFormData((prevState) => ({
+      setFormData((prevState: any) => ({
         ...prevState,
         [name]: checked,
       }));
     } else if (type === "file") {
-      setFormData((prevState) => ({
+      setFormData((prevState: any) => ({
         ...prevState,
         [name]: files ? files[0] : null,
       }));
     } else {
-      setFormData((prevState) => ({
+      setFormData((prevState: any) => ({
         ...prevState,
         [name]: value,
       }));
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
-    updateToggleModal();
+
+    try {
+      let useForm = false;
+      const fd = new FormData();
+
+      if (formData.carImage) {
+        fd.append("image", formData.carImage);
+        useForm = true;
+      }
+
+      if (formData.name && formData.name !== car.name) {
+        fd.append("name", formData.name);
+        useForm = true;
+      }
+      if (formData.description && formData.description !== car.description) {
+        fd.append("description", formData.description);
+        useForm = true;
+      }
+      if (formData.color && formData.color !== car.color) {
+        fd.append("color", formData.color);
+        useForm = true;
+      }
+
+      if (
+        typeof formData.isElectric === "boolean" &&
+        formData.isElectric !== !!car.isElectric
+      ) {
+        fd.append("isElectric", String(formData.isElectric));
+        useForm = true;
+      }
+
+      if (formData.features) {
+        const newFeatures = formData.features
+          .split(",")
+          .map((s: string) => s.trim())
+          .filter(Boolean);
+        const oldFeatures = Array.isArray(car.features) ? car.features : [];
+        if (JSON.stringify(newFeatures) !== JSON.stringify(oldFeatures)) {
+          fd.append("features", JSON.stringify(newFeatures));
+          useForm = true;
+        }
+      }
+
+      if (
+        formData.pricePerHour &&
+        String(formData.pricePerHour) !== String(car.pricePerHour)
+      ) {
+        fd.append("pricePerHour", String(Number(formData.pricePerHour)));
+        useForm = true;
+      }
+
+      if (
+        formData.manufacturer &&
+        formData.manufacturer !== car.Manufacturers
+      ) {
+        fd.append("Manufacturers", formData.manufacturer);
+        useForm = true;
+      }
+
+      if (formData.vehicleType && formData.vehicleType !== car.vehicleType) {
+        fd.append("vehicleType", formData.vehicleType);
+        useForm = true;
+      }
+
+      if (!useForm) {
+        Swal.fire(
+          "No changes",
+          "Please change at least one field to update.",
+          "info"
+        );
+        return;
+      }
+
+      const body: any = useForm ? fd : {};
+
+      await updateCar({ carId: car._id, body }).unwrap();
+      Swal.fire("Updated", "Car updated successfully", "success");
+      refetchCars();
+      updateToggleModal();
+    } catch (err: any) {
+      console.error("Update error:", err);
+      Swal.fire("Error", "Could not update car", "error");
+    }
   };
+
   return (
     <div
       className="py-12 bg-gray-700 bg-opacity-50 transition duration-150 ease-in-out z-10 fixed inset-0 overflow-auto"
@@ -69,7 +176,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
               width={20}
               height={20}
               viewBox="0 0 24 24"
-              strokeWidth="2.5"
+              strokeWidth={2.5}
               stroke="currentColor"
               fill="none"
               strokeLinecap="round"
@@ -94,7 +201,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 placeholder="Car Name"
                 value={formData.name}
                 onChange={handleChange}
-                required
               />
               <Input
                 type="text"
@@ -102,7 +208,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 placeholder="Description"
                 value={formData.description}
                 onChange={handleChange}
-                required
               />
               <Input
                 type="text"
@@ -110,7 +215,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 placeholder="Color"
                 value={formData.color}
                 onChange={handleChange}
-                required
               />
               {/* Radio Buttons for isElectric */}
               <div className="flex items-center">
@@ -124,7 +228,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                     value="true"
                     checked={formData.isElectric === true}
                     onChange={() =>
-                      setFormData((prevState) => ({
+                      setFormData((prevState: any) => ({
                         ...prevState,
                         isElectric: true,
                       }))
@@ -140,7 +244,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                     value="false"
                     checked={formData.isElectric === false}
                     onChange={() =>
-                      setFormData((prevState) => ({
+                      setFormData((prevState: any) => ({
                         ...prevState,
                         isElectric: false,
                       }))
@@ -156,7 +260,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 placeholder="Features"
                 value={formData.features}
                 onChange={handleChange}
-                required
               />
               <Input
                 type="number"
@@ -164,7 +267,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 placeholder="Price Per Hour"
                 value={formData.pricePerHour}
                 onChange={handleChange}
-                required
               />
               <Input
                 type="text"
@@ -172,7 +274,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 placeholder="Manufacturer"
                 value={formData.manufacturer}
                 onChange={handleChange}
-                required
               />
               <Input
                 type="text"
@@ -180,7 +281,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 placeholder="Vehicle Type"
                 value={formData.vehicleType}
                 onChange={handleChange}
-                required
               />
               {/* Input for Car Image */}
               <Input
@@ -191,7 +291,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
               />
               {/* Action Buttons */}
               <div className="flex items-center justify-start w-full mt-4">
-                <Button type="submit">Submit</Button>
+                <Button type="submit">Update</Button>
                 <button
                   type="button"
                   className="focus:outline-none ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:bg-gray-200 border rounded px-8 py-2 text-sm"

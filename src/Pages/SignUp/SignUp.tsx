@@ -40,20 +40,43 @@ const Signup = () => {
       return;
     }
 
-    const formDataToSubmit = new FormData();
-    formDataToSubmit.append("name", formData.name);
-    formDataToSubmit.append("email", formData.email);
-    formDataToSubmit.append("phone", formData.phone);
-    formDataToSubmit.append("address", formData.address);
-    formDataToSubmit.append("password", formData.password);
-
-    if (formData.profilePhoto) {
-      formDataToSubmit.append("profilePhoto", formData.profilePhoto);
-    }
+    // Build JSON payload. role is required by server validation; default to 'user'.
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      address: formData.address,
+      password: formData.password,
+      role: "user",
+    };
 
     try {
       console.log("Sending signup request...");
-      const response = await signup(formDataToSubmit).unwrap();
+
+      // If there's a profile photo, upload it first to the server (which will forward to Cloudinary)
+      let profilePhotoUrl: string | undefined;
+      if (formData.profilePhoto) {
+        const fd = new FormData();
+        fd.append("file", formData.profilePhoto);
+        const uploadRes = await fetch(
+          "http://localhost:3000/api/v1/uploads/profile",
+          {
+            method: "POST",
+
+            body: fd,
+          }
+        );
+        const uploadJson = await uploadRes.json();
+        if (uploadJson?.data?.url) {
+          profilePhotoUrl = uploadJson.data.url;
+        } else {
+          toast.error("Profile upload failed");
+        }
+      }
+
+      if (profilePhotoUrl) (payload as any).profilePhoto = profilePhotoUrl;
+
+      const response = await signup(payload).unwrap();
       console.log("Response received:", response);
 
       if (response?.data) {

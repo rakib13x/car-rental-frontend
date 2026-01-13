@@ -89,7 +89,7 @@ import { RootState } from "../store";
 
 // Define the base fetch query
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://assignment-5-ruby-pi.vercel.app/api/v1",
+  baseUrl: "http://localhost:3000/api/v1",
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -123,7 +123,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
       console.log("Sending refresh token");
 
       const refreshResponse = await fetch(
-        "https://assignment-5-ruby-pi.vercel.app/api/v1/auth/refresh-token",
+        "http://localhost:3000/api/v1/auth/refresh-token",
         {
           method: "POST",
           credentials: "include",

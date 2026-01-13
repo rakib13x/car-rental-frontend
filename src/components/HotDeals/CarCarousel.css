@@ -1,0 +1,21 @@
+.car-carousel .slick-track{
+  display: flex !important;
+  align-items: stretch;
+}
+
+.car-carousel .slick-slide{
+  display: block !important;
+  height: auto !important;
+}
+
+.car-carousel .slick-slide > div{
+  height: 100%;
+}
+
+/* ensure slides don't collapse on small images */
+.car-carousel img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
