@@ -11,6 +11,9 @@ import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 import Why from "../../components/why/why";
 import OurService from "../../components/Service/OurService";
+import Video from "../../components/Video/Video";
+import ChooseUs from "../../components/ChooseUs/ChooseUs";
+import Faq from "../../components/Faq/Faq";
 const Home = () => {
   return (
     <div>
@@ -31,6 +34,9 @@ const Home = () => {
       <Why />
       <OurService />
       <HowItWorks />
+      <Video />
+      <ChooseUs />
+      <Faq />
     </div>
   );
 };
