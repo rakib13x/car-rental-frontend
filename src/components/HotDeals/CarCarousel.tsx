@@ -82,10 +82,17 @@ export default function CarCarousel() {
 
               <div className="p-4">
                 <Link to={`/car-single/${car._id}`}>
-                  <h3 className="text-lg font-semibold text-slate-800">{car.name}</h3>
+                  <h3 className="text-lg font-semibold text-slate-800">
+                    {car.name}
+                  </h3>
                 </Link>
-                <p className="text-sm text-slate-500 mt-1">{car.model || "Model info"} • {car.seats || "—"} seats</p>
-                <p className="text-sm text-slate-500 mt-2 line-clamp-3">{car.description || "Comfortable, fuel-efficient and reliable choice for city and highway drives."}</p>
+                <p className="text-sm text-slate-500 mt-1">
+                  {car.model || "Model info"} • {car.seats || "—"} seats
+                </p>
+                <p className="text-sm text-slate-500 mt-2 line-clamp-3">
+                  {car.description ||
+                    "Comfortable, fuel-efficient and reliable choice for city and highway drives."}
+                </p>
 
                 <div className="mt-4 flex items-center gap-3">
                   <Link
@@ -95,7 +102,9 @@ export default function CarCarousel() {
                     View
                   </Link>
 
-                  <div className="ml-auto text-lg font-bold text-slate-800">${car.pricePerHour}/hr</div>
+                  <div className="ml-auto text-lg font-bold text-slate-800">
+                    ${car.pricePerHour}/hr
+                  </div>
                 </div>
               </div>
             </div>

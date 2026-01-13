@@ -41,7 +41,7 @@ const Navbar = () => {
 
   return (
     <>
-      <TopBar />
+      {/* <TopBar /> */}
       <header className="header px-3 xl:px-0 py-5 lg:py-9 relative">
         <div className="flex items-center">
           <Link to="/">

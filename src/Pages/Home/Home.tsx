@@ -3,13 +3,14 @@ import CallToAction from "../../components/CallToAction";
 import CarList from "../../components/Car/CarList";
 import Hero from "../../components/Hero/Hero";
 import Hotdeals from "../../components/HotDeals/HotDeals";
-import HowItWorks from "../../components/HowItWorks";
+import HowItWorks from "../../components/HowItWorks/HowItWorks";
 import Mobile from "../../components/Mobile/Mobile";
 import ServiceBar from "../../components/ServiceBar";
 import Testimonial from "../../components/Testimonial/Testimonial";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
-
+import Why from "../../components/why/why";
+import OurService from "../../components/Service/OurService";
 const Home = () => {
   return (
     <div>
@@ -27,6 +28,9 @@ const Home = () => {
       <CallToAction />
 
       <Footer />
+      <Why />
+      <OurService />
+      <HowItWorks />
     </div>
   );
 };
