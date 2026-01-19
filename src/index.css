@@ -2,68 +2,109 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+@layer components {
+  /* Section background matching the original light gradient design, but token-based */
+  .our-services-section {
+    background-image: linear-gradient(
+      to bottom,
+      /* hsl(var(--background)), */ hsl(var(--muted))
+    );
   }
 
-  /* .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  } */
+  /* ... keep existing code (hover reveal button + card styles below) */
+}
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Core palette (HSL only) */
+    --ink: 160 7% 6%; /* #0e100f */
+    --butter: 54 100% 94%; /* #fefbe0 */
+    --brand: 135 92% 47%; /* #0ae448 */
+
+    /* OurService (orange + light surfaces, HSL only) */
+    --service: 24 95% 55%;
+    --service-foreground: 0 0% 100%;
+    --service-ink: 222 47% 11%;
+    --service-muted: 215 16% 47%;
+    --service-surface: 0 0% 100%;
+    --service-surface-2: 210 20% 98%;
+    --service-soft: 24 100% 96%;
+    --service-soft-hover: 24 100% 92%;
+
+    /* App tokens */
+    /* --background: var(--ink); */
+    --foreground: var(--butter);
+
+    --card: 160 7% 8%;
+    --card-foreground: var(--butter);
+
+    --popover: 160 7% 8%;
+    --popover-foreground: var(--butter);
+
+    --primary: var(--butter);
+    --primary-foreground: var(--ink);
+
+    --secondary: 160 6% 12%;
+    --secondary-foreground: var(--butter);
+
+    --muted: 160 6% 12%;
+    --muted-foreground: 54 18% 72%;
+
+    --accent: 160 6% 12%;
+    --accent-foreground: var(--butter);
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--butter);
+
+    --border: 160 6% 16%;
+    --input: 160 6% 16%;
+    --ring: var(--brand);
+
+    --radius: 1rem;
+
+    /* Sidebar tokens (keep coherent) */
+    --sidebar-background: 160 7% 7%;
+    --sidebar-foreground: var(--butter);
+    --sidebar-primary: var(--brand);
+    --sidebar-primary-foreground: var(--ink);
+    --sidebar-accent: 160 6% 12%;
+    --sidebar-accent-foreground: var(--butter);
+    --sidebar-border: 160 6% 16%;
+    --sidebar-ring: var(--brand);
+
+    /* Signature motion + depth */
+    --shadow-glow:
+      0 0 0 1px hsl(var(--border)), 0 18px 60px -24px hsl(var(--brand) / 0.25);
+  }
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      "Segoe UI",
+      Roboto,
+      "Helvetica Neue",
+      Arial,
+      "Noto Sans",
+      "Apple Color Emoji",
+      "Segoe UI Emoji";
+    letter-spacing: -0.01em;
   }
+}
+
+@layer components {
+  /* Hover reveal styles moved into Tailwind classNames inside components.
+     Keep this layer for project-wide reusable utilities only. */
 }
