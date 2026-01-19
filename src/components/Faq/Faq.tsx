@@ -1,6 +1,7 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
-
+import building1 from "../../../public/images/our-faqs-img-1.jpg";
+import car from "../../../public/images/our-faqs-car-img.png";
 const Faq = () => {
   const [openIndex, setOpenIndex] = useState(0);
 
@@ -35,26 +36,37 @@ const Faq = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Image */}
           <div className="relative order-2 lg:order-1">
-            <div className="relative bg-gray-100 rounded-3xl overflow-hidden p-8">
+            <div className="relative bg-gray-100 rounded-3xl overflow-hidden p-8  flex justify-center items-center">
               <img
-                src="https://images.unsplash.com/photo-1563720223185-11003d516935?w=700&h=700&fit=crop"
+                src={building1}
                 alt="Luxury black car"
-                className="w-full h-auto object-contain"
+                className="w-full h-[450px] object-cover object-center"
+                style={{
+                  clipPath: "polygon(2% 0, 50% 0, 80% 100%, 30% 100%)",
+                }}
+              />
+              <img
+                src={building1}
+                alt="Luxury black car"
+                className="w-full h-[450px] object-cover object-center"
+                style={{
+                  clipPath: "polygon(2% 0, 50% 0, 80% 100%, 30% 100%)",
+                }}
               />
               {/* Background building images */}
-              <div className="absolute top-8 left-8 w-32 h-48 opacity-50">
+              <div className="absolute top-[30%] left-8">
                 <img
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&h=300&fit=crop"
-                  alt="Building"
+                  src={car}
+                  alt="car"
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
               <div className="absolute top-8 right-8 w-32 h-48 opacity-50">
-                <img
+                {/* <img
                   src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=200&h=300&fit=crop"
                   alt="Building"
                   className="w-full h-full object-cover rounded-lg"
-                />
+                /> */}
               </div>
             </div>
           </div>

@@ -1,3 +1,5 @@
+import building from "../../../public/images/why-choose-img.jpg";
+import car from "../../../public/images/why-choose-car-img.png";
 const ChooseUs = () => {
   const features = [
     {
@@ -168,13 +170,16 @@ const ChooseUs = () => {
 
           {/* Center Image */}
           <div className="relative">
-            <div className="relative w-full aspect-square rounded-full overflow-hidden shadow-2xl border-8 border-white mx-auto max-w-md">
-              <img
-                src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=600&h=600&fit=crop"
-                alt="Luxury red car with city background"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <img
+              src={building}
+              alt="Luxury red car with city background"
+              className="w-[80%] h-[90%] object-cover rounded-full"
+            />
+            <img
+              src={car}
+              alt="Luxury red car with city background"
+              className="w-[100%] h-[50%] object-cover absolute top-[50%] right-[10%]"
+            />
           </div>
 
           {/* Right Features */}
