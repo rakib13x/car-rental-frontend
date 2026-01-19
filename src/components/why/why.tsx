@@ -1,4 +1,7 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import aboutImg1 from "../../../public/images/about-img-1.jpg";
+import aboutImg2 from "../../../public/images/about-img-2.jpg";
+
 const why = () => {
   return (
     <div>
@@ -7,80 +10,75 @@ const why = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left side - Images (Desktop) / Top (Mobile) */}
             <div className="relative order-1 lg:order-1">
-              <div className="relative w-full max-w-lg mx-auto lg:mx-0">
+              <div className="relative w-full max-w-lg mx-auto lg:mx-0 h-[650px]">
                 {/* Top circular image */}
-                <div className="absolute top-0 left-0 w-48 sm:w-56 md:w-64 h-48 sm:h-56 md:h-64 rounded-full overflow-hidden shadow-2xl border-4 border-white z-10">
-                  <img
-                    src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=500&h=500&fit=crop"
-                    alt="Woman in car"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
 
+                <img
+                  src={aboutImg1}
+                  alt="Woman in car"
+                  className="w-[400px] h-[550px] object-cover rounded-full"
+                />
                 {/* Bottom circular image */}
-                <div className="absolute bottom-0 right-0 w-64 sm:w-72 md:w-80 h-64 sm:h-72 md:h-80 rounded-full overflow-hidden shadow-2xl border-4 border-white">
-                  <img
-                    src="https://images.unsplash.com/photo-1551522435-a13afa10f103?w=500&h=500&fit=crop"
-                    alt="Woman with coffee"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
+                <img
+                  src={aboutImg2}
+                  alt="Woman with coffee"
+                  className="w-[300px] h-[400px] object-cover rounded-full absolute top-60 left-60"
+                />
                 {/* Decorative elements */}
-                <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 z-20">
+                <div className="absolute top-[20%] left-[90%] transform -translate-x-1/2 z-20">
                   <svg
-                    width="60"
-                    height="60"
-                    viewBox="0 0 80 80"
-                    fill="none"
-                    className="text-orange-500 md:w-20 md:h-20"
+                    width="80px"
+                    height="80px"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-name="Layer 1"
+                    className="text-orange-600"
                   >
                     <path
-                      d="M40 0L45 35H75L50 55L60 80L40 65L20 80L30 55L5 35H35L40 0Z"
+                      d="M18.562,14.63379,14.00031,12,18.562,9.36621a1.00016,1.00016,0,0,0-1-1.73242L13,10.26776V5a1,1,0,0,0-2,0v5.26776l-4.562-2.634a1.00016,1.00016,0,0,0-1,1.73242L9.99969,12,5.438,14.63379a1.00016,1.00016,0,0,0,1,1.73242L11,13.73224V19a1,1,0,0,0,2,0V13.73224l4.562,2.634a1.00016,1.00016,0,0,0,1-1.73242Z"
                       fill="currentColor"
+                      stroke="currentColor"
+                      strokeWidth="2"
                     />
                   </svg>
                 </div>
 
-                <div className="absolute bottom-1/4 left-0 z-20">
+                <div className="absolute bottom-[5%] left-[35%] z-20">
                   <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 50 50"
-                    fill="none"
-                    className="text-gray-800 md:w-12 md:h-12"
+                    fill="#000000"
+                    width="40px"
+                    height="40px"
+                    viewBox="0 0 2.4 2.4"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      d="M25 5L27 23L45 25L27 27L25 45L23 27L5 25L23 23L25 5Z"
-                      fill="currentColor"
-                    />
+                    <path d="m1.956 2.341 -0.666 -0.329a0.126 0.126 0 0 0 -0.12 0.004l0.001 0 -0.642 0.375a0.061 0.061 0 0 1 -0.09 -0.063v0l0.099 -0.754q0.001 -0.007 0.001 -0.016c0 -0.036 -0.015 -0.069 -0.04 -0.092l0 0 -0.457 -0.425a0.127 0.127 0 0 1 0.065 -0.217l0.001 0 0.599 -0.111c0.042 -0.008 0.077 -0.035 0.094 -0.073l0 -0.001L1.048 0.075a0.127 0.127 0 0 1 0.227 -0.009l0 0.001 0.288 0.547c0.02 0.036 0.056 0.062 0.098 0.067h0.001l0.605 0.068a0.127 0.127 0 0 1 0.081 0.212l0 0 -0.427 0.456a0.125 0.125 0 0 0 -0.032 0.112l0 -0.001 0.152 0.745q0.001 0.006 0.002 0.013a0.061 0.061 0 0 1 -0.088 0.055z" />
                   </svg>
                 </div>
-
-                {/* Spacer for layout */}
-                <div className="w-full h-80 sm:h-96 md:h-[28rem]"></div>
               </div>
             </div>
 
             {/* Right side - Content (Desktop) / Bottom (Mobile) */}
-            <div className="space-y-6 order-2 lg:order-2">
+            <div className="space-y-6 order-2 lg:order-2 lg:mb-8">
               <div className="flex items-center gap-2">
                 <svg
-                  width="24"
-                  height="24"
+                  width="20px"
+                  height="20px"
                   viewBox="0 0 24 24"
-                  fill="none"
-                  className="text-orange-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                  data-name="Layer 1"
+                  className="text-orange-600"
                 >
                   <path
-                    d="M12 2L15 9H22L16 14L19 21L12 17L5 21L8 14L2 9H9L12 2Z"
+                    d="M18.562,14.63379,14.00031,12,18.562,9.36621a1.00016,1.00016,0,0,0-1-1.73242L13,10.26776V5a1,1,0,0,0-2,0v5.26776l-4.562-2.634a1.00016,1.00016,0,0,0-1,1.73242L9.99969,12,5.438,14.63379a1.00016,1.00016,0,0,0,1,1.73242L11,13.73224V19a1,1,0,0,0,2,0V13.73224l4.562,2.634a1.00016,1.00016,0,0,0,1-1.73242Z"
                     fill="currentColor"
+                    stroke="currentColor"
+                    strokeWidth="2"
                   />
                 </svg>
                 <span className="text-orange-500 font-semibold">About Us</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
                 Your trusted partner in reliable car rental
               </h2>
 
@@ -190,12 +188,27 @@ const why = () => {
 
               {/* Contact Button */}
               <div className="pt-4">
-                <button className="group flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
-                  Contact Us
-                  <span className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform duration-300">
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500" />
-                  </span>
-                </button>
+                <div className="flex  group">
+                  <button
+                    type="button"
+                    className="group flex items-center gap-3 px-8 py-4 bg-orange-500   text-white font-semibold rounded-full transition-all shadow-lg hover:shadow-xl"
+                    onClick={() => {
+                      console.log("View all services");
+                    }}
+                  >
+                    Contact Us
+                  </button>
+                  <button
+                    type="button"
+                    className="w-12 h-12 rounded-full flex items-center justify-center shadow-sm transition-all duration-300  bg-orange-500 group-hover:bg-white group-hover:rotate-45 group-hover:duration-500 group-hover:border group-hover:border-orange-500"
+                    tabIndex={-1}
+                  >
+                    <ArrowUpRight
+                      className="w-5 h-5 transition-colors duration-1000 text-white group-hover:text-orange-500 "
+                      aria-hidden
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
