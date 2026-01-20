@@ -26,17 +26,17 @@ const Faq = () => {
     },
   ];
 
-  const toggleFAQ = (index) => {
+  const toggleFAQ = (index: any) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="py-16 px-4 lg:px-12 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-16 px-4 lg:px-12 bg-[#ffedd6] rounded-2xl">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Image */}
           <div className="relative order-2 lg:order-1">
-            <div className="relative bg-gray-100 rounded-3xl overflow-hidden p-8  flex justify-center items-center">
+            <div className="relative rounded-3xl overflow-hidden p-8  flex justify-center items-center">
               <img
                 src={building1}
                 alt="Luxury black car"
@@ -75,28 +75,31 @@ const Faq = () => {
           <div className="order-1 lg:order-2">
             <div className="flex items-center gap-2 mb-4">
               <svg
-                width="24"
-                height="24"
+                width="20px"
+                height="20px"
                 viewBox="0 0 24 24"
-                fill="none"
-                className="text-orange-500"
+                xmlns="http://www.w3.org/2000/svg"
+                data-name="Layer 1"
+                className="text-orange-600"
               >
                 <path
-                  d="M12 2L15 9H22L16 14L19 21L12 17L5 21L8 14L2 9H9L12 2Z"
+                  d="M18.562,14.63379,14.00031,12,18.562,9.36621a1.00016,1.00016,0,0,0-1-1.73242L13,10.26776V5a1,1,0,0,0-2,0v5.26776l-4.562-2.634a1.00016,1.00016,0,0,0-1,1.73242L9.99969,12,5.438,14.63379a1.00016,1.00016,0,0,0,1,1.73242L11,13.73224V19a1,1,0,0,0,2,0V13.73224l4.562,2.634a1.00016,1.00016,0,0,0,1-1.73242Z"
                   fill="currentColor"
+                  stroke="currentColor"
+                  strokeWidth="2"
                 />
               </svg>
-              <span className="text-orange-500 font-semibold">
+              <span className="text-orange-600 font-semibold">
                 Frequently Asked Questions
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-8">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-12">
               Everything you need to know about our services
             </h2>
 
             {/* FAQ Accordion */}
-            <div className="space-y-4">
+            <div className="space-y-10">
               {faqs.map((faq, index) => (
                 <div key={faq.id} className="border-b border-gray-200 pb-4">
                   <button
