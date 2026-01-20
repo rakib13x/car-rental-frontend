@@ -1,9 +1,9 @@
 import { ArrowUpRight } from "lucide-react";
-
+import ctaCar from "../../../public/images/cta-car-img.png";
 export default function CTASection() {
   return (
     <section className="py-16 px-4 lg:px-12">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7.5xl mx-auto">
         <div className="relative bg-black rounded-[2.5rem] overflow-hidden">
           {/* Grid pattern overlay */}
           <div
@@ -14,10 +14,10 @@ export default function CTASection() {
             }}
           />
 
-          <div className="relative grid lg:grid-cols-2 gap-8 items-center p-8 sm:p-12 lg:p-16">
+          <div className="relative grid lg:grid-cols-2 gap-20 items-center p-8 sm:p-12 lg:p-24">
             {/* Left Content */}
             <div className="text-white space-y-6">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
                 Ready to hit the road?
                 <br />
                 Book your car today!
@@ -56,7 +56,7 @@ export default function CTASection() {
 
                 {/* Car Image */}
                 <img
-                  src="https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=800&h=500&fit=crop"
+                  src={ctaCar}
                   alt="White luxury sedan"
                   className="relative w-full h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
                 />

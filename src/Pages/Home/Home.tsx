@@ -14,6 +14,7 @@ import OurService from "../../components/Service/OurService";
 import Video from "../../components/Video/Video";
 import ChooseUs from "../../components/ChooseUs/ChooseUs";
 import Faq from "../../components/Faq/Faq";
+import CTASection from "../../components/CTA/CTA";
 const Home = () => {
   return (
     <div>
@@ -37,6 +38,7 @@ const Home = () => {
       <Video />
       <ChooseUs />
       <Faq />
+      <CTASection />
     </div>
   );
 };
