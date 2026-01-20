@@ -1,13 +1,7 @@
 import "aos/dist/aos.css";
-import CallToAction from "../../components/CallToAction";
 import CarList from "../../components/Car/CarList";
 import Hero from "../../components/Hero/Hero";
-import Hotdeals from "../../components/HotDeals/HotDeals";
 import HowItWorks from "../../components/HowItWorks/HowItWorks";
-import Mobile from "../../components/Mobile/Mobile";
-import ServiceBar from "../../components/ServiceBar";
-import Testimonial from "../../components/Testimonial/Testimonial";
-import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 import Why from "../../components/why/why";
 import OurService from "../../components/Service/OurService";
@@ -15,23 +9,24 @@ import Video from "../../components/Video/Video";
 import ChooseUs from "../../components/ChooseUs/ChooseUs";
 import Faq from "../../components/Faq/Faq";
 import CTASection from "../../components/CTA/CTA";
+import NewFooter from "../../components/NewFooter/NewFooter";
 const Home = () => {
   return (
     <div>
       <Navbar />
       <Hero />
-      <ServiceBar />
+      {/* <ServiceBar /> */}
       {/* <Advantages /> */}
       <CarList />
       <HowItWorks />
-      <Mobile />
-      <Hotdeals />
+      {/* <Mobile /> */}
+      {/* <Hotdeals /> */}
       {/* <WhyChoose />
       <Collaborate /> */}
-      <Testimonial />
-      <CallToAction />
+      {/* <Testimonial /> */}
+      {/* <CallToAction /> */}
 
-      <Footer />
+      {/* <Footer /> */}
       <Why />
       <OurService />
       <HowItWorks />
@@ -39,6 +34,7 @@ const Home = () => {
       <ChooseUs />
       <Faq />
       <CTASection />
+      <NewFooter />
     </div>
   );
 };

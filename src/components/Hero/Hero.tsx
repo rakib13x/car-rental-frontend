@@ -39,8 +39,8 @@ const Hero = () => {
             Book Now
           </Link>
         </div>
-        <div className="mt-6 w-full px-2 sm:px-6">
-          <div className="bg-white/90 rounded-lg p-4 shadow-lg">
+        <div className="absolute top-80 ">
+          <div className=" ">
             <Search />
           </div>
         </div>
