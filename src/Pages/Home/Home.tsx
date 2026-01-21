@@ -10,6 +10,7 @@ import ChooseUs from "../../components/ChooseUs/ChooseUs";
 import Faq from "../../components/Faq/Faq";
 import CTASection from "../../components/CTA/CTA";
 import NewFooter from "../../components/NewFooter/NewFooter";
+import Testimonial from "../../components/Testimonial/Testimonial";
 const Home = () => {
   return (
     <div>
@@ -23,7 +24,7 @@ const Home = () => {
       {/* <Hotdeals /> */}
       {/* <WhyChoose />
       <Collaborate /> */}
-      {/* <Testimonial /> */}
+      <Testimonial />
       {/* <CallToAction /> */}
 
       {/* <Footer /> */}

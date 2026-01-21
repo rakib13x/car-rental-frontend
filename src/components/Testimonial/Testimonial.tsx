@@ -1,14 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { useGSAP } from "@gsap/react";
+
 import gsap from "gsap";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Star,
-  Quote,
-  ArrowLeft,
-  ArrowRight,
-} from "lucide-react";
+import { Star, Quote, ArrowLeft, ArrowRight } from "lucide-react";
 
 type Testimonial = {
   quote: string;
