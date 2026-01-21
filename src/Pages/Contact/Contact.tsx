@@ -1,5 +1,6 @@
+import ContactForm from "../../components/ContactForm/ContactForm";
+import NewFooter from "../../components/NewFooter/NewFooter";
 import PageTitle from "../../components/PageTitle";
-import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 
 export default function Contact() {
@@ -53,7 +54,7 @@ export default function Contact() {
           </div>
         </div>
       </SectionWrapper> */}
-
+      <ContactForm />
       {/* <div
         className="grid grid-cols-1 lg:grid-cols-2 gap-0"
         style={{ alignItems: "center" }}
@@ -82,7 +83,7 @@ export default function Contact() {
           />
         </div>
       </div> */}
-      <Footer />
+      <NewFooter />
     </>
   );
 }
