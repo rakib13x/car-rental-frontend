@@ -1,13 +1,6 @@
-import { BiEnvelope, BiMap, BiPhone } from "react-icons/bi";
-import { Link } from "react-router-dom";
 import PageTitle from "../../components/PageTitle";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/Input";
-import { Textarea } from "../../components/ui/textarea";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
-import SectionTitle from "../../Shared/SectionTitle/SectionTitle";
-import SectionWrapper from "../../Shared/SectionWrapper/SectionWrapper";
 
 export default function Contact() {
   const title = "Contact Us";
@@ -15,7 +8,7 @@ export default function Contact() {
     <>
       <Navbar />
       <PageTitle title={title} />
-      <SectionWrapper>
+      {/* <SectionWrapper>
         <SectionTitle
           title={"Contact Details"}
           subtitle={"Contact our head office"}
@@ -59,9 +52,9 @@ export default function Contact() {
             </div>
           </div>
         </div>
-      </SectionWrapper>
+      </SectionWrapper> */}
 
-      <div
+      {/* <div
         className="grid grid-cols-1 lg:grid-cols-2 gap-0"
         style={{ alignItems: "center" }}
       >
@@ -88,7 +81,7 @@ export default function Contact() {
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.952912260219!2d3.375295414770757!3d6.5276316452784755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d9cb!2sLagos!5e0!3m2!1sen!2sng!4v1567723392506!5m2!1sen!2sng"
           />
         </div>
-      </div>
+      </div> */}
       <Footer />
     </>
   );
