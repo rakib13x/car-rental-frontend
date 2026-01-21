@@ -52,9 +52,9 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: (
-          <ProtectedRoute>
-            <About />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <About />
+          // </ProtectedRoute>
         ),
       },
       {
